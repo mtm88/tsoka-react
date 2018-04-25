@@ -23,7 +23,7 @@ export function listAccomodations() {
     type: GET_ACCOMODATIONS,
     payload: {
       request: {
-        url: '/accomodations',
+        url: '/fetch_all.php?table=accomodations',
       },
     },
   };
