@@ -1,39 +1,56 @@
-export const GET_ACCOMODATIONS = 'tsoka/accomodations/ALL';
-export const GET_ACCOMODATIONS_SUCCESS = 'tsoka/accomodations/ALL_SUCCESS';
-export const GET_ACCOMODATIONS_FAIL = 'tsoka/accomodations/ALL_FAIL';
+export const FETCH_ALL = 'tsoka/FETCH_ALL';
+export const FETCH_ALL_SUCCESS = 'tsoka/FETCH_ALL_SUCCESS';
+export const FETCH_ALL_FAIL = 'tsoka/FETCH_ALL_FAIL';
 
-export const GET_ACCOMMODATION_INFO = 'tsoka/accomodations/DETAILS';
-export const GET_ACCOMMODATION_SUCCESS = 'tsoka/accomodations/DETAILS_SUCCESS';
-export const GET_ACCOMMODATION_FAIL = 'tsoka/accomodations/DETAILS_FAIL';
+export const FETCH_SINGLE_INFO = 'tsoka/FETCH_SINGLE';
+export const FETCH_SINGLE_SUCCESS = 'tsoka/FETCH_SINGLE_SUCCESS';
+export const FETCH_SINGLE_FAIL = 'tsoka/FETCH_SINGLE_FAIL';
 
 export const GET_MEMBER_INFO = 'tsoka/members/DETAILS';
 export const GET_MEMBER_SUCCESS = 'tsoka/members/DETAILS_SUCCESS';
 export const GET_MEMBER_FAIL = 'tsoka/members/DETAILS_FAIL';
 
 const initialState = {
-  accomodations: [],
-  accoDetails: {},
+  accommodations: [],
+  places: [],
+  placeDetails: {},
   memberInfo: {},
 };
 
+const devMode = env === 'development';
+
+import './config';
+
 export default function reducer(state = initialState, action) {
+  let data;
+
   switch (action.type) {
-    case GET_ACCOMODATIONS:
+    case FETCH_ALL:
       return { ...state, loading: true };
-    case GET_ACCOMODATIONS_SUCCESS:
-      return { ...state, loading: false, accomodations: action.payload.data };
-    case GET_ACCOMODATIONS_FAIL:
+    case FETCH_ALL_SUCCESS:
+      data = {};
+      data[action.payload.config.reduxSourceAction.table] = action.payload.data;
+      return { ...state, loading: false, ...data };
+    case FETCH_ALL_FAIL:
+      if (devMode) {
+        console.error(`Error while fetching ${action.error.config.reduxSourceAction.table}`);
+      }
       return {
         ...state,
         loading: false,
-        error: 'Error while fetching accomodations',
+        error: `Error while fetching ${action.error.config.reduxSourceAction.table}`,
       };
 
-    case GET_ACCOMMODATION_INFO:
+    case FETCH_SINGLE_INFO:
       return { ...state, loading: true };
-    case GET_ACCOMMODATION_SUCCESS:
-      return { ...state, loading: false, accoDetails: action.payload.data };
-    case GET_ACCOMMODATION_FAIL:
+    case FETCH_SINGLE_SUCCESS:
+      data = {};
+      data[action.payload.config.reduxSourceAction.recordType] = action.payload.data;
+      return { ...state, loading: false, ...data };
+    case FETCH_SINGLE_FAIL:
+      if (devMode) {
+        console.error(`Error while fetching ${action.error.config.reduxSourceAction.recordType} details`);
+      }
       return {
         ...state,
         loading: false,
@@ -45,6 +62,9 @@ export default function reducer(state = initialState, action) {
     case GET_MEMBER_SUCCESS:
       return { ...state, loading: false, memberInfo: action.payload.data };
     case GET_MEMBER_FAIL:
+      if (devMode) {
+        console.error('Error while fetching member details');
+      }
       return {
         ...state,
         loading: false,
@@ -55,23 +75,25 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function listAccomodations() {
+export function list(table, searchProp = 'name', text = '') {
   return {
-    type: GET_ACCOMODATIONS,
+    type: FETCH_ALL,
+    table,
     payload: {
       request: {
-        url: '/fetch_all.php?table=accomodations',
+        url: `/fetch_all.php?table=${table}&searchProp=${searchProp}&text=${text}`,
       },
     },
   };
 }
 
-export function getAccoDetails(accoId) {
+export function getSingle(table, recordType, id) {
   return {
-    type: GET_ACCOMMODATION_INFO,
+    type: FETCH_SINGLE_INFO,
+    recordType,
     payload: {
       request: {
-        url: `/fetch.php?table=accommodations&id=${accoId}`,
+        url: `/fetch.php?table=${table}&id=${id}`,
       },
     },
   };

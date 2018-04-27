@@ -1,12 +1,12 @@
 import { StackNavigator } from 'react-navigation';
 import AccomodationList from './../Screens/main';
-import AccoDetails from './../Screens/accoDetails';
+import PlaceDetails from './../Screens/placeDetails';
 
 export default AccoNavigator = StackNavigator({
   Home: {
     screen: AccomodationList,
   },
   Details: {
-    screen: AccoDetails,
+    screen: PlaceDetails,
   },
 });

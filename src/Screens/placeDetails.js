@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { getAccoDetails } from './../reducer';
+import { getSingle } from './../reducer';
 
-class AccoDetails extends Component {
+class PlaceDetails extends Component {
   static navigationOptions = {
-    title: 'Accommodation Details',
+    title: 'Place Details',
   };
 
   componentDidMount() {
-    this.props.getAccoDetails(1);
+    this.props.getSingle('places', 'place', 1);
   }
 
   render() {
-    const { accoDetails, loading } = this.props;
+    const { placeDetails, loading } = this.props;
 
     if (loading) {
       return <Text>Loading...</Text>;
@@ -27,13 +27,13 @@ class AccoDetails extends Component {
   }
 }
 
-const mapStateToProps = ({ accoDetails, loading }) => ({
-  accoDetails,
+const mapStateToProps = ({ placeDetails, loading }) => ({
+  placeDetails,
   loading,
 });
 
 const mapDispatchToProps = {
-  getAccoDetails,
+  getSingle,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccoDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceDetails);
