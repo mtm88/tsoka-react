@@ -6,7 +6,8 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 
 import reducer from './src/reducer';
-import AccomodationList from './src/Screens/main';
+
+import Drawer from './src/Navigators/drawerNavigator';
 
 import './src/config';
 
@@ -22,7 +23,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <AccomodationList />
+          <Drawer />
         </View>
       </Provider>
     );
@@ -32,7 +33,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 50,
+    marginTop: 22,
   },
 });
