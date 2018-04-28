@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 
@@ -16,7 +17,11 @@ const client = axios.create({
   responseType: 'json',
 });
 
-const store = createStore(reducer, applyMiddleware(axiosMiddleware(client)));
+const store = createStore(reducer, composeWithDevTools(
+  applyMiddleware(
+    axiosMiddleware(client)
+  )
+));
 
 export default class App extends Component {
   render() {

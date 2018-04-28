@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Platform, ImageBackground, Image as RNImage } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Platform, ImageBackground, Image as RNImage, TouchableOpacity } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Image } from "react-native-expo-image-cache";
@@ -12,15 +12,18 @@ class AccomodationList extends Component {
     header: 'none',
   })
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.list('places', 'top', 1);
   }
 
   renderItem = ({ item }) => {
     const preview = { uri: `${serverUrl}/images/places/${item.image}-thumb.png` };
     const uri = `${serverUrl}/images/places/${item.image}.png`;
+
     return (
-      <View style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => this.props.navigation.navigate('Details', { id: item.key })}>
         <View style={{ overflow: 'hidden', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
           <Image
             style={{ height: 120, width: null }}
@@ -39,7 +42,7 @@ class AccomodationList extends Component {
             <Text style={{ ...fontFamily, color: '#597580', fontSize: 17, paddingTop: 3 }}> per person</Text>
           </View>
         </View>
-      </View >
+      </TouchableOpacity>
     )
   };
 
@@ -65,6 +68,7 @@ class AccomodationList extends Component {
               name='menu'
               color='white'
               size={40}
+              underlayColor='transparent'
               onPress={() => this.props.navigation.navigate('DrawerToggle')} />
           </View>
 
@@ -85,7 +89,7 @@ class AccomodationList extends Component {
               borderBottomWidth: 0,
               alignSelf: 'center'
             }}
-            inputStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            inputStyle={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}
             autoCapitalize={'none'}
             autoCorrect={false}
             placeholder='Where to?'
@@ -98,7 +102,7 @@ class AccomodationList extends Component {
                 containerStyle={{ paddingRight: 20 }}
                 onPress={() => navigation.navigate('DrawerToggle')} />
             }
-            onChangeText={text => this.props.list('places', 'name', text)}
+            onChangeText={text => this.delayQuery(text)}
           />
         </ImageBackground>
 
@@ -111,6 +115,17 @@ class AccomodationList extends Component {
         </View>
       </View>
     );
+  }
+
+  delayQuery(searchText) {
+    this.setState({
+      searchText,
+    });
+    setTimeout(() => {
+      if (this.state.searchText === searchText) {
+        this.props.list('places', 'name', searchText);
+      }
+    }, 800);
   }
 }
 
@@ -143,7 +158,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ places = [] }) => {
   return {
-    places: places.map(place => ({ key: place.id, ...place })),
+    places: places ? places.map(place => ({ key: place.id, ...place })) : [],
   };
 }
 

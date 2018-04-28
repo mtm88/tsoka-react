@@ -13,7 +13,7 @@ export const GET_MEMBER_FAIL = 'tsoka/members/DETAILS_FAIL';
 const initialState = {
   accommodations: [],
   places: [],
-  placeDetails: {},
+  place: [],
   memberInfo: {},
 };
 
@@ -81,19 +81,19 @@ export function list(table, searchProp = 'name', text = '') {
     table,
     payload: {
       request: {
-        url: `/fetch_all.php?table=${table}&searchProp=${searchProp}&text=${text}`,
+        url: `/fetch_all.php?table=${table}&searchProp=${searchProp}&value=${text}`,
       },
     },
   };
 }
 
-export function getSingle(table, recordType, id) {
+export function getSingle(table, recordType, id, prop) {
   return {
     type: FETCH_SINGLE_INFO,
     recordType,
     payload: {
       request: {
-        url: `/fetch.php?table=${table}&id=${id}`,
+        url: `/fetch_all.php?table=${table}&searchProp=${prop || 'id'}&value=${id}`,
       },
     },
   };
