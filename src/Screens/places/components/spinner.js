@@ -3,7 +3,7 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 export default Spinner = () => (
   <View style={[styles.loadingContainer, styles.loadingHorizontal]}>
-    <ActivityIndicator size="large" color='white' />;
+    <ActivityIndicator size="large" color='white' />
   </View>
 );
 

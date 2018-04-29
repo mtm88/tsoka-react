@@ -4748,7 +4748,7 @@ mkdirp@*, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@2.x.x, moment@^2.10.6:
+moment@2.x.x, moment@^2.10.6, moment@^2.22.0, moment@^2.22.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
@@ -5517,6 +5517,12 @@ react-native-branch@2.0.0-beta.3:
   version "2.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
 
+react-native-datepicker@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz#58d0822591a0ac9b32aba082650222a0ee29669d"
+  dependencies:
+    moment "^2.22.0"
+
 react-native-debugger-open@^0.3.17:
   version "0.3.17"
   resolved "https://registry.yarnpkg.com/react-native-debugger-open/-/react-native-debugger-open-0.3.17.tgz#85b1b0dd76b0025d6f7c16a7c161b9d30a9bae93"
@@ -5570,12 +5576,24 @@ react-native-gesture-handler@1.0.0-alpha.41:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-image-progress@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-progress/-/react-native-image-progress-1.1.0.tgz#737140d699fb3fb107ec70615736dfdc2eef7b35"
+  dependencies:
+    prop-types "^15.5.10"
+
 "react-native-maps@https://github.com/expo/react-native-maps/archive/0.20.1-exp.0.tar.gz":
   version "0.20.1"
   resolved "https://github.com/expo/react-native-maps/archive/0.20.1-exp.0.tar.gz#81d607e2d77481c0441aecfdbc303389a34084c0"
   dependencies:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
+
+react-native-progress@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-3.4.0.tgz#c002e6efb2f0b82dd6889510e669c492da2718ac"
+  dependencies:
+    prop-types "^15.5.8"
 
 react-native-safe-area-view@^0.7.0:
   version "0.7.0"

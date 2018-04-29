@@ -1,12 +1,14 @@
 import { StackNavigator } from 'react-navigation';
-import AccomodationList from './../Screens/main';
+import Home from './../Screens/home';
 import PlacesNavigator from './../Navigators/placesNavigator';
 
-export default AccoNavigator = StackNavigator({
+export default HomeNavigator = StackNavigator({
   Home: {
-    screen: AccomodationList,
+    screen: Home,
   },
   Details: {
     screen: PlacesNavigator,
   },
+}, {
+    headerMode: 'none',
 });

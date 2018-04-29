@@ -1,10 +1,10 @@
 import { DrawerNavigator } from 'react-navigation';
-import AccoNavigator from './../Navigators/accoNavigator';
+import HomeNavigator from './../Navigators/homeNavigator';
 import Settings from './../Screens/settings';
 
 export default Drawer = DrawerNavigator({
   Home: {
-    screen: AccoNavigator,
+    screen: HomeNavigator,
   },
   Settings: {
     screen: Settings,

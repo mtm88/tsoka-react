@@ -22,14 +22,13 @@ export default PlacesNavigator = TabNavigator({
     screen: Events,
   },
 }, {
-    navigationOptions: {
-      header: 'none',
-    },
+    headerMode: 'none',
     tabBarOptions: {
-      activeBackgroundColor: '#5b1f07',
-      inactiveBackgroundColor: '#c7a249',
+      activeBackgroundColor: '#1A0800',
+      inactiveBackgroundColor: '#5b1f07',
+      showLabel: true,
       labelStyle: {
-        fontSize: 9,
+        fontSize: 8,
         color: '#fff',
         paddingBottom: 2,
       },

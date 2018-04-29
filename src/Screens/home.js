@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, Platform, ImageBackground, Image as RNImage, TouchableOpacity } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { Image } from "react-native-expo-image-cache";
-
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
 import { list } from './../reducer';
 
-class AccomodationList extends Component {
-  static navigationOptions = ({ navigation }) => ({
+class Home extends Component {
+  static navigationOptions = () => ({
     drawerLabel: 'Home',
-    header: 'none',
   })
 
   componentWillMount() {
+    // fetch top places, which means flag top = 1
     this.props.list('places', 'top', 1);
   }
 
   renderItem = ({ item }) => {
-    const preview = { uri: `${serverUrl}/images/places/${item.image}-thumb.png` };
-    const uri = `${serverUrl}/images/places/${item.image}.png`;
+    const uri = `${serverUrl}/images/places/${item.image}`;
 
     return (
       <TouchableOpacity
@@ -27,10 +26,12 @@ class AccomodationList extends Component {
         <View style={{ overflow: 'hidden', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
           <Image
             style={{ height: 120, width: null }}
-            {...{
-              preview,
-              uri,
+            indicator={ProgressBar}
+            indicatorProps={{
+              color: '#5b1f07',
+              progress: 1
             }}
+            source={{ uri }}
           />
         </View>
         <View style={{ flex: 1, paddingLeft: 15, paddingBottom: 5 }}>
@@ -99,8 +100,7 @@ class AccomodationList extends Component {
                 name='search'
                 color='#fff'
                 size={35}
-                containerStyle={{ paddingRight: 20 }}
-                onPress={() => navigation.navigate('DrawerToggle')} />
+                containerStyle={{ paddingRight: 20 }} />
             }
             onChangeText={text => this.delayQuery(text)}
           />
@@ -156,9 +156,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ places = [] }) => {
+const mapStateToProps = ({ places }) => {
+  places = places ? places.map(place => ({ key: place.id, ...place })).filter(({ image }) => image) : [];
+
   return {
-    places: places ? places.map(place => ({ key: place.id, ...place })) : [],
+    places,
   };
 }
 
@@ -166,4 +168,4 @@ const mapDispatchToProps = {
   list,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccomodationList);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

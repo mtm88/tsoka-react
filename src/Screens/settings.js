@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { getMember } from './../reducer';
 
 class Settings extends Component {
-  static navigationOptions = {
-    title: 'Settings',
-  };
+  static navigationOptions = () => ({
+    drawerLabel: 'Settings',
+  });
 
   componentDidMount() {
     this.props.getMember(1);
