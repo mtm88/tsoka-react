@@ -9,7 +9,7 @@ export default PlacesNavigator = TabNavigator({
   Description: {
     screen: Description,
   },
-  Accommodation: {
+  Hotels: {
     screen: Accommodation,
   },
   Activities: {
@@ -28,7 +28,7 @@ export default PlacesNavigator = TabNavigator({
       inactiveBackgroundColor: '#5b1f07',
       showLabel: true,
       labelStyle: {
-        fontSize: 8,
+        fontSize: 10,
         color: '#fff',
         paddingBottom: 2,
       },

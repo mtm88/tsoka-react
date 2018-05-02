@@ -23,8 +23,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "expo": "^26.0.0",
+    "moment": "^2.22.1",
     "react": "16.3.0",
     "react-native": "~0.54.1",
+    "react-native-chooser": "^1.7.0",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0-beta4",
     "react-native-expo-image-cache": "^3.0.2",
