@@ -21,42 +21,43 @@ const initialState = {
   places: [],
   place: [],
   memberInfo: {},
+  // cart: {
+  //   items: {
+  //     rooms: [],
+  //     events: [],
+  //     activities: [],
+  //     transport: [],
+  //   },
+  //   filter: 'All',
+  // },
   cart: {
     items: {
-      rooms: [],
       events: [],
       activities: [],
       transport: [],
+      rooms: [
+        {
+          type: 'room',
+          item: {
+            id: '1',
+            acco_id: '1',
+            type: '1',
+            price: '120.00',
+            image: 'Tsoka_1_900540900_x2.jpg',
+            description: 'The cheapest first class rooms',
+            created: '2018-01-24',
+            modified: '2018-01-24 23:23:52',
+            key: '1'
+          },
+          startDate: '03/05/2018',
+          endDate: '03/05/2018',
+          noOfPeople: 2,
+          noOfRooms: 3
+        },
+      ]
     },
-    filteredItems: [],
-    filter: null,
+    filter: 'All',
   },
-  // cart: {
-  //   items: {
-  //     'rooms': [
-  //       {
-  //         type: 'room',
-  //         item: {
-  //           id: '1',
-  //           acco_id: '1',
-  //           type: '1',
-  //           price: '120.00',
-  //           image: 'Tsoka_1_900540900_x2.jpg',
-  //           description: 'The cheapest first class rooms',
-  //           created: '2018-01-24',
-  //           modified: '2018-01-24 23:23:52',
-  //           key: '1'
-  //         },
-  //         startDate: '03/05/2018',
-  //         endDate: '03/05/2018',
-  //         noOfPeople: 2,
-  //         noOfRooms: 3
-  //       },
-  //     ]
-  //   },
-  //   filteredItems: [],
-  //   filter: null
-  // },
   selections: {
     place: null,
     accommodation: null,
@@ -114,7 +115,7 @@ export default function reducer(state = initialState, action) {
 
     case ADD_TO_CART:
       const itemType = action.payload.type;
-      
+
       return {
         ...state,
         cart: {
@@ -126,7 +127,7 @@ export default function reducer(state = initialState, action) {
               action.payload,
             ],
           },
-         },
+        },
       };
 
     case REMOVE_FROM_CART:
@@ -141,7 +142,16 @@ export default function reducer(state = initialState, action) {
           items: {
             ...state.cart.items,
             [type]: state.cart.items[type].filter(((item, index) => index !== requestedElToRemove)),
-          }  
+          }
+        },
+      };
+
+    case FILTER_CART:
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          filter: action.payload.filter,
         },
       };
 
@@ -217,8 +227,13 @@ export function removeFromCart(type, index) {
   };
 }
 
-export function filterCart() {
-
+export function filterCart(filter) {
+  return {
+    type: FILTER_CART,
+    payload: {
+      filter,
+    }
+  }
 }
 
 export function getMember(memberId) {
