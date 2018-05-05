@@ -7,8 +7,11 @@ import ProgressBar from 'react-native-progress/Bar';
 
 const fontFamily = Platform.OS === 'ios' ? 'Apple SD Gothic Neo' : 'sans-serif';
 
-export default Header = ({ place, navigation, tab }) => {
-  const uri = place && place[0] && place[0].image ? `${serverUrl}/images/places/${place[0].image}` : '${serverUrl}/images/default.png';
+export default Header = ({ place, accommodation, room, navigation, navigateTo, tab }) => {
+  const imgDir = place ? 'places' : accommodation ? 'accommodation' : 'rooms';
+  const nameParam = accommodation ? 'hotel_name' : 'name';
+  const currentPlace = place || accommodation || room;
+  const uri = currentPlace && currentPlace.image ? `${serverUrl}/images/${imgDir}/${currentPlace.image}` : '${serverUrl}/images/default.png';
 
   return (
     <View>
@@ -19,11 +22,17 @@ export default Header = ({ place, navigation, tab }) => {
           size={26}
           containerStyle={{ flex: 2 }}
           underlayColor='transparent'
-          onPress={() => navigation.navigate('Home')} />
+          onPress={() => navigation.navigate(navigateTo || 'Home')} />
         <View style={{ flex: 6, alignItems: 'center' }}>
-          <Text style={{ fontFamily, color: '#fff', fontSize: 20 }}>{place && place[0] && place[0].name || 'Default Name'}</Text>
+          <Text style={{ fontFamily, color: '#fff', fontSize: 20 }}>{currentPlace && currentPlace[nameParam] || 'Default Name'}</Text>
         </View>
         <View style={{ flex: 2 }}>
+          <Icon
+            name='menu'
+            color='white'
+            size={40}
+            underlayColor='transparent'
+            onPress={() => navigation.navigate('DrawerToggle')} />
         </View>
       </View>
       <View>

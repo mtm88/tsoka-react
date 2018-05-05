@@ -4,7 +4,7 @@ import { Icon, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
-import { list } from './../reducer';
+import { list, setSelection } from './../reducer';
 
 class Home extends Component {
   static navigationOptions = () => ({
@@ -16,13 +16,18 @@ class Home extends Component {
     this.props.list('places', 'top', 1);
   }
 
+  dispatchSelectionAndNavigate(item) {
+    this.props.setSelection('place', item);
+    this.props.navigation.navigate('Details', { id: item.key })
+  }
+
   renderItem = ({ item }) => {
     const uri = `${serverUrl}/images/places/${item.image}`;
 
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => this.props.navigation.navigate('Details', { id: item.key })}>
+        onPress={() => this.dispatchSelectionAndNavigate(item)}>
         <View style={{ overflow: 'hidden', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
           <Image
             style={{ height: 120, width: null }}
@@ -68,7 +73,7 @@ class Home extends Component {
             <Icon
               name='menu'
               color='white'
-              size={40}
+              size={35}
               underlayColor='transparent'
               onPress={() => this.props.navigation.navigate('DrawerToggle')} />
           </View>
@@ -166,6 +171,7 @@ const mapStateToProps = ({ places }) => {
 
 const mapDispatchToProps = {
   list,
+  setSelection,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

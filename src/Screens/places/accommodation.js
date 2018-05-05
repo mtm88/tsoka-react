@@ -5,11 +5,11 @@ import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
 
 import { connect } from 'react-redux';
-import { list } from './../../reducer';
+import { list, setSelection } from './../../reducer';
 
 import Header from './components/header';
 import Spinner from './components/spinner';
-import AccomodationModal from './components/accommodationModal';
+import RoomModal from './components/roomModal';
 
 import styles from './styles';
 import AppText from './../../components/AppText';
@@ -24,7 +24,7 @@ class Accomodation extends Component {
     tabBarIcon: () => {
       return (
         <Icon
-          name='place'
+          name='hotel'
           color='#fff'
           size={26}
         />
@@ -33,31 +33,23 @@ class Accomodation extends Component {
   };
 
   componentWillMount() {
-    const { id } = this.props.navigation.state.params;
+    const { id } = this.props.place;
     this.props.list('accommodations', 'place_id', id);
   }
 
-  setModalVisible(visible) {
-    this.setState({
-      modalVisible: visible,
-    });
-  }
-
-  setSelectedAccomodation(item) {
-    this.setState({
-      selectedAccommodation: item,
-    });
+  dispatchSelectionAndNavigate(item) {
+    this.props.setSelection('accommodation', item);
+    this.props.navigation.navigate('Rooms', { id: item.key })
   }
 
   render() {
     const { place, accommodations } = this.props;
 
-    if (place.length) {
+    if (place) {
       return (
         <View style={styles.container}>
           <Header place={place} tab='Accommodation' navigation={this.props.navigation} />
 
-          <AccomodationModal selectedAccommodation={this.state.selectedAccommodation} modalVisible={this.state.modalVisible} setModalVisible={(visible) => this.setModalVisible(visible)} />
           <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
             <FlatList
               data={this.props.accommodations}
@@ -75,44 +67,53 @@ class Accomodation extends Component {
   renderItem = ({ item }) => {
     const uri = item && item.image ? `${serverUrl}/images/accommodation/${item.image}` : '${serverUrl}/images/default.png';
     return (
-      <TouchableOpacity
-        onPress={() => {
-          this.setSelectedAccomodation(item);
-          this.setModalVisible(true);
-        }}>
-        <View style={{ flex: 1, marginVertical: 15, paddingHorizontal: 25 }}>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>
-              <Image
-                style={{ height: 120, width: null }}
-                indicator={ProgressBar}
-                indicatorProps={{
-                  color: '#5b1f07',
-                  progress: 1
-                }}
-                source={{ uri }}
-              />
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#FFD99C' }}>
-              <AppText style={{ color: '#5b1f07', paddingLeft: 10, paddingTop: 10 }}>Name</AppText>
-              <AppText style={{ fontWeight: '700', color: '#5b1f07', paddingLeft: 10, paddingTop: 2, fontSize: 17 }}>{item.hotel_name}</AppText>
-              <AppText style={{ color: '#5b1f07', paddingLeft: 10, paddingTop: 10 }}>Price</AppText>
-              <AppText style={{ fontWeight: 'bold', color: '#5b1f07', paddingLeft: 10, paddingTop: 2, fontSize: 16 }}>${item.cost_per_night}</AppText>
-            </View>
+      <View style={{ flex: 1, marginVertical: 15, paddingHorizontal: 25 }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
+            <Image
+              style={{ height: 120, width: null }}
+              indicator={ProgressBar}
+              indicatorProps={{
+                color: '#5b1f07',
+                progress: 1
+              }}
+              source={{ uri }}
+            />
           </View>
-        </View >
-      </TouchableOpacity>
+          <View style={{ flex: 1, backgroundColor: '#FFD99C', flexDirection: 'column' }}>
+            <View style={{ flex: 1 }}>
+              <AppText style={{ fontWeight: '700', color: '#5b1f07', paddingLeft: 10, paddingTop: 6, fontSize: 17 }}>{item.hotel_name}</AppText>
+              <AppText style={{ fontWeight: 'normal', color: '#5b1f07', paddingLeft: 10, paddingTop: 10, fontSize: 16 }}>${item.cost_per_night}</AppText>
+            </View>
+            <TouchableOpacity onPress={() => this.dispatchSelectionAndNavigate(item)}>
+              <View style={{ flex: 1, backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
+                <View style={{ flex: 1 }}>
+                  <Icon
+                    name='place'
+                    color='white'
+                    size={20}
+                    underlayColor='transparent' />
+                </View>
+                <View style={{ flex: 3 }}>
+                  <AppText style={{ fontWeight: 'bold', fontSize: 17, color: 'white' }}>View Rooms</AppText>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View >
     )
   };
 }
 
-const mapStateToProps = ({ place, accommodations }) => ({
+const mapStateToProps = ({ selections: { place }, accommodations }) => ({
   place,
   accommodations: accommodations ? accommodations.map(acco => ({ ...acco, key: acco.id })) : [],
 });
 
 const mapDispatchToProps = {
   list,
+  setSelection,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Accomodation);

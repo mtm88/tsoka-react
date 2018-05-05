@@ -21,7 +21,7 @@ class Description extends Component {
   };
 
   componentWillMount() {
-    const { id } = this.props.navigation.state.params;
+    const { id } = this.props.place;
     this.props.getSingle('places', 'place', id);
     this.props.getSingle('place_description', 'place_description', id, 'place_id');
   }
@@ -48,7 +48,7 @@ class Description extends Component {
   }
 }
 
-const mapStateToProps = ({ place, place_description, loading }) => ({
+const mapStateToProps = ({ selections: { place }, place_description, loading }) => ({
   place,
   place_description,
   loading,

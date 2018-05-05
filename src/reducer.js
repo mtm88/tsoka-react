@@ -6,6 +6,12 @@ export const FETCH_SINGLE_INFO = 'tsoka/FETCH_SINGLE';
 export const FETCH_SINGLE_SUCCESS = 'tsoka/FETCH_SINGLE_SUCCESS';
 export const FETCH_SINGLE_FAIL = 'tsoka/FETCH_SINGLE_FAIL';
 
+export const SET_SELECTION = 'tsoka/selection/SET';
+
+export const ADD_TO_CART = 'tsoka/cart/ADD';
+export const REMOVE_FROM_CART = 'tsoka/cart/REMOVE';
+export const FILTER_CART = 'tsoka/cart/FILTER';
+
 export const GET_MEMBER_INFO = 'tsoka/members/DETAILS';
 export const GET_MEMBER_SUCCESS = 'tsoka/members/DETAILS_SUCCESS';
 export const GET_MEMBER_FAIL = 'tsoka/members/DETAILS_FAIL';
@@ -15,6 +21,47 @@ const initialState = {
   places: [],
   place: [],
   memberInfo: {},
+  cart: {
+    items: {
+      rooms: [],
+      events: [],
+      activities: [],
+      transport: [],
+    },
+    filteredItems: [],
+    filter: null,
+  },
+  // cart: {
+  //   items: {
+  //     'rooms': [
+  //       {
+  //         type: 'room',
+  //         item: {
+  //           id: '1',
+  //           acco_id: '1',
+  //           type: '1',
+  //           price: '120.00',
+  //           image: 'Tsoka_1_900540900_x2.jpg',
+  //           description: 'The cheapest first class rooms',
+  //           created: '2018-01-24',
+  //           modified: '2018-01-24 23:23:52',
+  //           key: '1'
+  //         },
+  //         startDate: '03/05/2018',
+  //         endDate: '03/05/2018',
+  //         noOfPeople: 2,
+  //         noOfRooms: 3
+  //       },
+  //     ]
+  //   },
+  //   filteredItems: [],
+  //   filter: null
+  // },
+  selections: {
+    place: null,
+    accommodation: null,
+    room: null,
+  }
 };
 
 const devMode = env === 'development';
@@ -57,6 +104,47 @@ export default function reducer(state = initialState, action) {
         error: 'Error while fetching accommodation details',
       };
 
+    case SET_SELECTION:
+      const selections = state.selections;
+      selections[action.payload.scope] = action.payload.selection;
+      return {
+        ...state,
+        selections,
+      }
+
+    case ADD_TO_CART:
+      const itemType = action.payload.type;
+      
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          items: {
+            ...state.cart.items,
+            [itemType]: [
+              ...state.cart.items[itemType],
+              action.payload,
+            ],
+          },
+         },
+      };
+
+    case REMOVE_FROM_CART:
+      const type = action.payload.type;
+      const modifiedType = state.cart.items[type];
+      const requestedElToRemove = modifiedType.findIndex(({ item: { id } }) => id === action.payload.index.toString());
+
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          items: {
+            ...state.cart.items,
+            [type]: state.cart.items[type].filter(((item, index) => index !== requestedElToRemove)),
+          }  
+        },
+      };
+
     case GET_MEMBER_INFO:
       return { ...state, loading: true };
     case GET_MEMBER_SUCCESS:
@@ -97,6 +185,40 @@ export function getSingle(table, recordType, id, prop) {
       },
     },
   };
+}
+
+export function setSelection(scope, selection) {
+  return {
+    type: SET_SELECTION,
+    payload: {
+      scope,
+      selection,
+    }
+  }
+}
+
+export function addToCart({ type, item, startDate, endDate, noOfPeople, noOfRooms }) {
+  item.key = item.id;
+  return {
+    type: ADD_TO_CART,
+    payload: {
+      type, item, startDate, endDate, noOfPeople, noOfRooms,
+    }
+  }
+}
+
+export function removeFromCart(type, index) {
+  return {
+    type: REMOVE_FROM_CART,
+    payload: {
+      type,
+      index,
+    },
+  };
+}
+
+export function filterCart() {
+
 }
 
 export function getMember(memberId) {

@@ -8,12 +8,12 @@ import AppText from './../../../components/AppText';
 
 import moment from 'moment';
 
-export default class AccommodationModal extends Component {
+export default class RoomModal extends Component {
   state = {
     startDate: moment().format('DD/MM/YYYY'),
     endDate: moment().format('DD/MM/YYYY'),
-    noOfPeople: 1,
-    noOfRooms: 1,
+    noOfPeople: null,
+    noOfRooms: null,
   };
 
   setDates(period, date) {
@@ -37,11 +37,13 @@ export default class AccommodationModal extends Component {
     newState[prop] = value;
 
     this.setState(newState);
+    this.props.resetError();
   }
 
   render() {
-    const { selectedAccommodation, modalVisible, setModalVisible } = this.props;
-    const uri = selectedAccommodation && selectedAccommodation.image ? `${serverUrl}/images/accommodation/${selectedAccommodation.image}` : '${serverUrl}/images/default.png';
+    const { selectedRoom, modalVisible, setModalVisible, addToCartAndHide, displayError } = this.props;
+    const { startDate, endDate, noOfPeople, noOfRooms } = this.state;
+    const uri = selectedRoom && selectedRoom.image ? `${serverUrl}/images/rooms/${selectedRoom.image}` : '${serverUrl}/images/default.png';
 
     return (
       <View>
@@ -112,10 +114,12 @@ export default class AccommodationModal extends Component {
                   <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>No. of People</AppText>
                   <Select
                     onSelect={(value) => this.onSelect('noOfPeople', value)}
+                    transparent={true}
                     style={selectStyles}
                     textStyle={selectTextStyle}
                     backdropStyle={selectBackdropStyle}
                     optionListStyle={selectOptionListStyle}
+                    selectedStyle={selectSelectedStyle}
                     selected={this.state.noOfPeople}
                   >
                     {
@@ -134,6 +138,7 @@ export default class AccommodationModal extends Component {
                     textStyle={selectTextStyle}
                     backdropStyle={selectBackdropStyle}
                     optionListStyle={selectOptionListStyle}
+                    selectedStyle={selectSelectedStyle}
                     selected={this.state.noOfRooms}
                   >
                     {
@@ -144,13 +149,18 @@ export default class AccommodationModal extends Component {
                   </Select>
                 </View>
               </View>
-              <View style={{ flex: 1, flexDirection: 'row', borderTopColor: '#5b1f07', borderTopWidth: 1}}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                {
+                  displayError && <AppText style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>Please select all options before proceeding.</AppText>
+                }
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', borderTopColor: '#5b1f07', borderTopWidth: 1 }}>
                 <TouchableOpacity style={{ flex: 1, borderRightColor: '#5b1f07', borderRightWidth: 0.7 }} onPress={() => setModalVisible(!modalVisible)}>
-                  <View style={{ flex: 1,  justifyContent: 'center', alignItems: 'center' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <AppText style={{ fontSize: 17, fontWeight: 'bold', color: '#5b1f07' }}>Cancel</AppText>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flex: 1 }} onPress={() => setModalVisible(!modalVisible)}>
+                <TouchableOpacity style={{ flex: 1 }} onPress={() => addToCartAndHide({ startDate, endDate, noOfPeople, noOfRooms })}>
                   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <AppText style={{ fontSize: 17, fontWeight: 'bold', color: '#5b1f07' }}>Add to Cart</AppText>
                   </View>
@@ -199,11 +209,11 @@ const selectTextStyle = {
 };
 
 const selectBackdropStyle = {
-  backgroundColor: '#f4b44c',
+  backgroundColor: 'rgba(111, 112, 114, 0.8)',
 }
 
 const selectOptionListStyle = {
-  backgroundColor: '#5b1f07',
+  backgroundColor: '#f4b44c',
 }
 
 const selectOptionTextStyle = {
@@ -215,4 +225,8 @@ const selectOptionStyle = {
   paddingVertical: 10,
   paddingHorizontal: 10,
   alignItems: 'center'
+}
+
+const selectSelectedStyle = {
+  backgroundColor: '#5b1f07',
 }

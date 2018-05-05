@@ -1,6 +1,6 @@
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Description from './../Screens/places/description';
-import Accommodation from './../Screens/places/accommodation';
+import AccommodationNavigator from './../Navigators/accommodationNavigator';
 import Activities from './../Screens/places/activities';
 import Transport from './../Screens/places/transport';
 import Events from './../Screens/places/events';
@@ -10,7 +10,7 @@ export default PlacesNavigator = TabNavigator({
     screen: Description,
   },
   Hotels: {
-    screen: Accommodation,
+    screen: AccommodationNavigator,
   },
   Activities: {
     screen: Activities,
