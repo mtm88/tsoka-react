@@ -31,13 +31,6 @@ class Cart extends Component {
             <AppText style={{ color: '#fff', fontSize: 20 }}>Cart</AppText>
           </View>
           <View style={{ flex: 2 }}>
-            <Icon
-              type='foundation'
-              name='filter'
-              color='white'
-              size={35}
-              underlayColor='transparent'
-              onPress={() => this.toggleFilteringModal()} />
           </View>
         </View>
 

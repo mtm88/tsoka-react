@@ -8,9 +8,14 @@ import axiosMiddleware from 'redux-axios-middleware';
 
 import reducer from './src/reducer';
 
-import Drawer from './src/Navigators/drawerNavigator';
+import Splash from './src/Screens/splash';
 
 import './src/config';
+
+// This is used in order to see requests on the Chrome DevTools
+XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
+  GLOBAL.originalXMLHttpRequest :
+  GLOBAL.XMLHttpRequest;
 
 const client = axios.create({
   baseURL: `${serverUrl}/mobile`,
@@ -28,7 +33,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <Drawer />
+          <Splash />
         </View>
       </Provider>
     );

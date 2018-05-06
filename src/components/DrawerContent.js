@@ -4,7 +4,8 @@ import { Icon } from 'react-native-elements';
 
 export default class DrawerContent extends Component {
   render() {
-    const icons = ['home', 'shopping-cart', 'settings']
+    const icons = ['home', 'shopping-cart', 'comment', 'settings', 'power'];
+
     return (
       <View style={{ flex: 1, backgroundColor: '#5b1f07' }}>
         <View style={{ alignItems: 'center', marginTop: 40 }}>

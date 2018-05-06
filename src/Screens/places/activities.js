@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Header from './components/header';
-import Spinner from './components/spinner';
+import Spinner from './../../components/Spinner';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { getSingle } from './../../reducer';

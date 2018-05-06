@@ -16,45 +16,22 @@ export const GET_MEMBER_INFO = 'tsoka/members/DETAILS';
 export const GET_MEMBER_SUCCESS = 'tsoka/members/DETAILS_SUCCESS';
 export const GET_MEMBER_FAIL = 'tsoka/members/DETAILS_FAIL';
 
+export const USER_LOGIN = 'tsoka/member/LOGIN';
+export const USER_LOGIN_SUCCESS = 'tsoka/member/LOGIN_SUCCESS';
+export const USER_LOGIN_FAIL = 'tsoka/member/LOGIN_FAIL';
+
 const initialState = {
   accommodations: [],
   places: [],
   place: [],
+  blog_posts: [],
   memberInfo: {},
-  // cart: {
-  //   items: {
-  //     rooms: [],
-  //     events: [],
-  //     activities: [],
-  //     transport: [],
-  //   },
-  //   filter: 'All',
-  // },
   cart: {
     items: {
+      rooms: [],
       events: [],
       activities: [],
       transport: [],
-      rooms: [
-        {
-          type: 'room',
-          item: {
-            id: '1',
-            acco_id: '1',
-            type: '1',
-            price: '120.00',
-            image: 'Tsoka_1_900540900_x2.jpg',
-            description: 'The cheapest first class rooms',
-            created: '2018-01-24',
-            modified: '2018-01-24 23:23:52',
-            key: '1'
-          },
-          startDate: '03/05/2018',
-          endDate: '03/05/2018',
-          noOfPeople: 2,
-          noOfRooms: 3
-        },
-      ]
     },
     filter: 'All',
   },
@@ -62,7 +39,13 @@ const initialState = {
     place: null,
     accommodation: null,
     room: null,
-  }
+    blog: null,
+  },
+  user: {
+    loggedIn: false,
+    failedAuth: false,
+  },
+  loading: false,
 };
 
 const devMode = env === 'development';
@@ -169,7 +152,40 @@ export default function reducer(state = initialState, action) {
         error: 'Error while fetching member details',
       };
 
+
+    case USER_LOGIN:
+      return { ...state, loading: true };
+    case USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          loggedIn: true,
+        },
+      };
+    case USER_LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          failedAuth: true,
+        },
+      };
+
     default: return state;
+  }
+}
+
+export function login(login, password) {
+  return {
+    type: USER_LOGIN,
+    payload: {
+      request: {
+        url: `/member_login.php?login=${login}&password=${password}`,
+      }
+    }
   }
 }
 
