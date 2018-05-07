@@ -10,8 +10,14 @@ import AppText from './../components/AppText';
 
 class Register extends Component {
   state = {
-    login: null,
+    fName: null,
+    lName: null,
+    userName: null,
+    email: null,
+    phone: null,
     password: null,
+    cPassword: null,
+    terms: false,
   };
 
   setCredentials(credential, detail) {
@@ -20,7 +26,7 @@ class Register extends Component {
     });
   }
 
-  login() {
+  register() {
     const { login, password } = this.state;
     this.props.login(login, password);
   }
@@ -37,8 +43,60 @@ class Register extends Component {
 
         <ScrollView
           style={{ flex: 5 }}>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Input
+              containerStyle={{ paddingTop: 10, flex: 1 }}
+              inputContainerStyle={{
+                height: 45,
+                width: 135,
+                borderRadius: 25,
+                borderBottomWidth: 1.5,
+                borderTopWidth: 1.5,
+                borderLeftWidth: 1.5,
+                borderRightWidth: 1.5,
+                borderColor: '#5b1f07',
+                alignSelf: 'flex-end',
+                marginRight: 5,
+                paddingLeft: 5,
+              }}
+              inputStyle={{ fontSize: 20, color: '#5b1f07' }}
+              autoCapitalize={'words'}
+              autoCorrect={false}
+              placeholder='First Name'
+              placeholderTextColor="#5b1f07"
+              onChangeText={fName => this.setCredentials('fName', fName)}
+              errorMessage={this.props.user.failedAuth ? 'Sorry, invalid username or password' : null}
+              errorStyle={{ alignSelf: 'center', fontSize: 15 }}
+            />
+
+            <Input
+              containerStyle={{ flex: 1, paddingTop: 10 }}
+              inputContainerStyle={{
+                height: 45,
+                width: 135,
+                borderRadius: 25,
+                borderBottomWidth: 1.5,
+                borderTopWidth: 1.5,
+                borderLeftWidth: 1.5,
+                borderRightWidth: 1.5,
+                borderColor: '#5b1f07',
+                alignSelf: 'flex-start',
+                marginLeft: 5,
+                paddingLeft: 5,
+              }}
+              inputStyle={{ fontSize: 20, color: '#5b1f07' }}
+              autoCapitalize={'words'}
+              autoCorrect={false}
+              placeholder='Last Name'
+              placeholderTextColor="#5b1f07"
+              onChangeText={lName => this.setCredentials('lName', lName)}
+              errorMessage={this.props.user.failedAuth ? 'Sorry, invalid username or password' : null}
+              errorStyle={{ alignSelf: 'center', fontSize: 15 }}
+            />
+          </View>
+
           <Input
-            containerStyle={{ alignSelf: 'center', paddingTop: 30 }}
+            containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
             inputContainerStyle={{
               height: 45,
               width: 280,
@@ -48,28 +106,21 @@ class Register extends Component {
               borderLeftWidth: 1.5,
               borderRightWidth: 1.5,
               borderColor: '#5b1f07',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              paddingLeft: 5,
             }}
-            inputStyle={{ fontSize: 20, paddingTop: 7, color: '#5b1f07' }}
+            inputStyle={{ fontSize: 20, color: '#5b1f07' }}
             autoCapitalize={'none'}
             autoCorrect={false}
-            placeholder='Email'
+            placeholder='User name'
             placeholderTextColor="#5b1f07"
-            leftIcon={
-              <Icon
-                type='font-awesome'
-                name='envelope'
-                color='#5b1f07'
-                size={28}
-                containerStyle={{ alignSelf: 'center' }} />
-            }
-            onChangeText={login => this.setCredentials('login', login)}
+            onChangeText={userName => this.setCredentials('userName', userName)}
             errorMessage={this.props.user.failedAuth ? 'Sorry, invalid username or password' : null}
             errorStyle={{ alignSelf: 'center', fontSize: 15 }}
           />
 
           <Input
-            containerStyle={{ alignSelf: 'center', paddingTop: 20 }}
+            containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
             inputContainerStyle={{
               height: 45,
               width: 280,
@@ -79,22 +130,83 @@ class Register extends Component {
               borderLeftWidth: 1.5,
               borderRightWidth: 1.5,
               borderColor: '#5b1f07',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              paddingLeft: 5,
+            }}
+            inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            placeholder='Email'
+            placeholderTextColor="#5b1f07"
+            onChangeText={email => this.setCredentials('email', email)}
+          />
+
+          <Input
+            containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
+            inputContainerStyle={{
+              height: 45,
+              width: 280,
+              borderRadius: 25,
+              borderBottomWidth: 1.5,
+              borderTopWidth: 1.5,
+              borderLeftWidth: 1.5,
+              borderRightWidth: 1.5,
+              borderColor: '#5b1f07',
+              alignSelf: 'center',
+              paddingLeft: 5,
+            }}
+            inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            placeholder='Phone'
+            placeholderTextColor="#5b1f07"
+            onChangeText={phone => this.setCredentials('phone', phone)}
+          />
+
+          <Input
+            containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
+            inputContainerStyle={{
+              height: 45,
+              width: 280,
+              borderRadius: 25,
+              borderBottomWidth: 1.5,
+              borderTopWidth: 1.5,
+              borderLeftWidth: 1.5,
+              borderRightWidth: 1.5,
+              borderColor: '#5b1f07',
+              alignSelf: 'center',
+              paddingLeft: 5,
             }}
             inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
             autoCapitalize={'none'}
             autoCorrect={false}
             placeholder='Password'
             placeholderTextColor="#5b1f07"
-            leftIcon={
-              <Icon
-                type='font-awesome'
-                name='lock'
-                color='#5b1f07'
-                size={28}
-                containerStyle={{ paddingLeft: 5, alignSelf: 'center' }} />
-            }
             onChangeText={password => this.setCredentials('password', password)}
+            maxLength={15}
+            secureTextEntry={true}
+          />
+
+          <Input
+            containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
+            inputContainerStyle={{
+              height: 45,
+              width: 280,
+              borderRadius: 25,
+              borderBottomWidth: 1.5,
+              borderTopWidth: 1.5,
+              borderLeftWidth: 1.5,
+              borderRightWidth: 1.5,
+              borderColor: '#5b1f07',
+              alignSelf: 'center',
+              paddingLeft: 5,
+            }}
+            inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            placeholder='Confirm password'
+            placeholderTextColor="#5b1f07"
+            onChangeText={cPassword => this.setCredentials('cPassword', cPassword)}
             maxLength={15}
             secureTextEntry={true}
           />
@@ -115,21 +227,13 @@ class Register extends Component {
           </TouchableOpacity>
 
           <SocialIcon
-            style={{ width: 265, alignSelf: 'center', marginTop: 50 }}
+            style={{ width: 265, alignSelf: 'center', marginTop: 30 }}
             fontStyle={{ fontSize: 16 }}
             iconSize={20}
             title='Sign In With Facebook'
             button
             type='facebook'
           />
-
-          <View style={{ alignItems: 'center', paddingTop: 20 }}>
-            <AppText style={{ color: 'black', fontSize: 16 }}>Don't have an account yet?</AppText>
-            <TouchableOpacity onPress={() => alert('test')}>
-              <AppText style={{ fontWeight: 'bold', fontSize: 16 }}> Sign up</AppText>
-            </TouchableOpacity>
-          </View>
-
         </ScrollView>
       </View>
     )
