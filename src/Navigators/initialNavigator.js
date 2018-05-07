@@ -1,8 +1,14 @@
 import { StackNavigator } from 'react-navigation';
 import InitialRoute from './../Screens/initial';
+import Register from './../Screens/register';
 
 const routeConfigs = {
-  InitialRoute: { screen: InitialRoute },
+  InitialRoute: {
+    screen: InitialRoute,
+  },
+  Register: {
+    screen: Register,
+  }
 };
 
 const StackNavigationConfig = {

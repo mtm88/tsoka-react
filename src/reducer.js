@@ -46,6 +46,7 @@ const initialState = {
   user: {
     loggedIn: false,
     failedAuth: false,
+    login: null,
   },
   loading: false,
 };
@@ -164,6 +165,7 @@ export default function reducer(state = initialState, action) {
         user: {
           ...state.user,
           loggedIn: true,
+          login: action.meta.previousAction.payload.login,
         },
       };
     case USER_LOGIN_FAIL:
@@ -194,6 +196,8 @@ export function login(login, password) {
   return {
     type: USER_LOGIN,
     payload: {
+      login,
+      password,
       request: {
         url: `/member_login.php?login=${login}&password=${password}`,
       }

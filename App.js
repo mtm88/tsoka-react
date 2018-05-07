@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, createTransform } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
@@ -13,10 +13,26 @@ import axiosMiddleware from 'redux-axios-middleware';
 
 import reducer from './src/reducer';
 
+const failedLoginTransform = createTransform(null, (outboundState, key) => {
+  if (!key === 'user') {
+    return outboundState;
+  }
+  return {
+    ...outboundState,
+    user: {
+      ...outboundState.user,
+      failedAuth: false,
+    },
+  };
+});
+
 const persistedReducer = persistReducer({
   key: 'root',
   storage,
   stateReconciler: autoMergeLevel2,
+  transforms: [
+    failedLoginTransform,
+  ],
 }, reducer);
 
 import InitialNavigator from './src/Navigators/initialNavigator';

@@ -8,7 +8,7 @@ import { login } from './../reducer';
 
 import AppText from './../components/AppText';
 
-class Login extends Component {
+class Register extends Component {
   state = {
     login: null,
     password: null,
@@ -31,10 +31,8 @@ class Login extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', paddingTop: 50, paddingBottom: 20 }}>
-          <Image
-            style={{ width: 128, height: 64 }}
-            source={require('./../../static/images/logo.png')}
-          />
+          <AppText style={{ fontWeight: 'bold', fontSize: 20, paddingBottom: 5 }}>REGISTER</AppText>
+          <AppText>Please fill in your details</AppText>
         </View>
 
         <ScrollView
@@ -127,7 +125,7 @@ class Login extends Component {
 
           <View style={{ alignItems: 'center', paddingTop: 20 }}>
             <AppText style={{ color: 'black', fontSize: 16 }}>Don't have an account yet?</AppText>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
+            <TouchableOpacity onPress={() => alert('test')}>
               <AppText style={{ fontWeight: 'bold', fontSize: 16 }}> Sign up</AppText>
             </TouchableOpacity>
           </View>
@@ -144,4 +142,4 @@ const mapDispatchToProps = {
   login,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
