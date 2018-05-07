@@ -20,6 +20,8 @@ export const USER_LOGIN = 'tsoka/member/LOGIN';
 export const USER_LOGIN_SUCCESS = 'tsoka/member/LOGIN_SUCCESS';
 export const USER_LOGIN_FAIL = 'tsoka/member/LOGIN_FAIL';
 
+export const USER_LOGOUT = 'tsoka/member/LOGOUT';
+
 const initialState = {
   accommodations: [],
   places: [],
@@ -174,6 +176,16 @@ export default function reducer(state = initialState, action) {
         },
       };
 
+    case USER_LOGOUT:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          loggedIn: false,
+          failedAuth: false,
+        },
+      };
+
     default: return state;
   }
 }
@@ -187,6 +199,12 @@ export function login(login, password) {
       }
     }
   }
+}
+
+export function logout() {
+  return {
+    type: USER_LOGOUT,
+  };
 }
 
 export function list(table, searchProp = 'name', text = '') {

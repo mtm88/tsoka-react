@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+
+import { connect } from 'react-redux';
+
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-export default class DrawerContent extends Component {
+import { logout } from './../reducer';
+
+class DrawerContent extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const icons = ['home', 'shopping-cart', 'comment', 'settings', 'power'];
+
+    const { user } = this.props;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#5b1f07' }}>
@@ -22,7 +33,14 @@ export default class DrawerContent extends Component {
                 <TouchableOpacity
                   key={item.key}
                   style={{ padding: 5 }}
-                  onPress={() => this.props.navigation.navigate(item.routeName)}
+                  onPress={
+                    () => {
+                      if (item.routeName === 'Logout') {
+                        return this.props.logout();
+                      }
+                      return this.props.navigation.navigate(item.routeName);
+                    }
+                  }
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 50, paddingHorizontal: 20 }}>
                     <Icon
@@ -44,5 +62,13 @@ export default class DrawerContent extends Component {
     );
   }
 }
+
+const mapStateToProps = (({ user }) => ({ user }));
+
+const mapDispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);
 
 

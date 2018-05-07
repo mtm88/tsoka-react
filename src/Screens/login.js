@@ -24,10 +24,8 @@ class Login extends Component {
     const { login, password } = this.state;
     const loginResults = await this.props.login(login, password);
 
-    if (loginResults.payload.data) {
-      return this.props.updateStatus(true);
+    if (loginResults.payload && loginResults.payload.data) {
     }
-    return this.props.updateStatus(false);
   }
 
   render() {
@@ -71,7 +69,7 @@ class Login extends Component {
                 containerStyle={{ alignSelf: 'center' }} />
             }
             onChangeText={login => this.setCredentials('login', login)}
-            errorMessage={this.props.failedAuth ? 'Sorry, invalid username or password' : null}
+            errorMessage={this.props.user.failedAuth ? 'Sorry, invalid username or password' : null}
             errorStyle={{ alignSelf: 'center', fontSize: 15 }}
           />
 
@@ -113,10 +111,10 @@ class Login extends Component {
               (
                 <View style={{ flexDirection: 'row' }}>
                   <ActivityIndicator size='small' color='white' style={{ marginRight: 10 }} />
-                  <AppText style={{ color: 'white', fontSize: 16 }}> Veryfing Credentials...</AppText>
+                  <AppText style={{ color: 'white', fontSize: 16 }}>Veryfing Credentials...</AppText>
                 </View>
               ) : (
-                <AppText style={{ color: 'white', fontSize: 16 }}>{this.props.failedAuth ? 'Try again' : 'Sign in'}</AppText>
+                <AppText style={{ color: 'white', fontSize: 16 }}>{this.props.user.failedAuth ? 'Try again' : 'Sign in'}</AppText>
               )
             }
           </TouchableOpacity>
