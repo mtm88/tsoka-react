@@ -14,15 +14,18 @@ import axiosMiddleware from 'redux-axios-middleware';
 import reducer from './src/reducer';
 
 const failedLoginTransform = createTransform(null, (outboundState, key) => {
-  if (!key === 'user') {
+  if (key === 'loading') {
+    return false;
+  }
+  
+  if (key !== 'user') {
     return outboundState;
   }
+
   return {
     ...outboundState,
-    user: {
-      ...outboundState.user,
-      failedAuth: false,
-    },
+    failedAuth: false,
+    error: null,
   };
 });
 

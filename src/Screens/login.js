@@ -26,7 +26,7 @@ class Login extends Component {
   }
 
   render() {
-    const { user, loading } = this.props;
+    const { user, loading, navigation } = this.props;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
@@ -127,7 +127,7 @@ class Login extends Component {
 
           <View style={{ alignItems: 'center', paddingTop: 20 }}>
             <AppText style={{ color: 'black', fontSize: 16 }}>Don't have an account yet?</AppText>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <AppText style={{ fontWeight: 'bold', fontSize: 16 }}> Sign up</AppText>
             </TouchableOpacity>
           </View>

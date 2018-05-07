@@ -22,6 +22,14 @@ export const USER_LOGIN_FAIL = 'tsoka/member/LOGIN_FAIL';
 
 export const USER_LOGOUT = 'tsoka/member/LOGOUT';
 
+export const USER_REGISTER = 'tsoka/member/REGISTER';
+export const USER_REGISTER_SUCCESS = 'tsoka/member/REGISTER_SUCCESS';
+export const USER_REGISTER_FAIL = 'tsoka/member/REGISTER_FAIL';
+
+export const CONFIRM_CODE = 'tsoka/member/CONFIRM_CODE';
+export const CONFIRM_CODE_SUCCESS = 'tsoka/member/CONFIRM_CODE_SUCCESS';
+export const CONFIRM_CODE_FAIL = 'tsoka/member/CONFIRM_CODE_FAIL';
+
 const initialState = {
   accommodations: [],
   places: [],
@@ -47,6 +55,8 @@ const initialState = {
     loggedIn: false,
     failedAuth: false,
     login: null,
+    error: null,
+    confirmationCode: null,
   },
   loading: false,
 };
@@ -188,6 +198,54 @@ export default function reducer(state = initialState, action) {
         },
       };
 
+    case USER_REGISTER:
+      return {
+        ...state,
+        loading: true,
+      };
+    case USER_REGISTER_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          confirmationCode: action.payload.data.code,
+          login: action.payload.data.email,
+        },
+        loading: false,
+      }
+    case USER_REGISTER_FAIL:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          error: action.error.response.data,
+        },
+        loading: false,
+      }
+
+    case CONFIRM_CODE: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case CONFIRM_CODE_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          loggedIn: true,
+        },
+      };
+    }
+    case CONFIRM_CODE_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+
     default: return state;
   }
 }
@@ -208,6 +266,30 @@ export function login(login, password) {
 export function logout() {
   return {
     type: USER_LOGOUT,
+  };
+}
+
+export function register({ fName, lName, userName, email, phone, password, cPassword }) {
+  return {
+    type: USER_REGISTER,
+    payload: {
+      request: {
+        method: 'post',
+        data: { fName, lName, userName, email, phone, password, cPassword },
+        url: '/member_register.php',
+      }
+    },
+  };
+}
+
+export function confirmRegistrationCode({ login, code }) {
+  return {
+    type: CONFIRM_CODE,
+    payload: {
+      request: {
+        url: `/confirm_code.php?login=${login}&code=${code}`,
+      },
+    },
   };
 }
 
