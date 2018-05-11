@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@expo/vector-icons": "^6.3.1",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "jest": "^22.4.3",
     "jest-react-native": "^18.0.0",
@@ -21,6 +20,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "@expo/vector-icons": "^6.3.1",
     "axios": "^0.18.0",
     "moment": "^2.22.1",
     "react": "16.3.0",
@@ -29,6 +29,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0-beta4",
     "react-native-expo-image-cache": "^3.0.2",
+    "react-native-facebook-login": "^1.6.1",
     "react-native-image-progress": "^1.1.0",
     "react-native-progress": "^3.4.0",
     "react-native-table-component": "^1.1.8",
