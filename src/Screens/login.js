@@ -52,17 +52,17 @@ class Login extends Component {
               borderColor: '#5b1f07',
               alignSelf: 'center'
             }}
-            inputStyle={{ fontSize: 20, paddingTop: 7, color: '#5b1f07' }}
+            inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
             autoCapitalize={'none'}
             autoCorrect={false}
-            placeholder='Email'
+            placeholder='Email or Phone'
             placeholderTextColor="#5b1f07"
             leftIcon={
               <Icon
-                type='font-awesome'
-                name='envelope'
+                type='entypo'
+                name='login'
                 color='#5b1f07'
-                size={28}
+                size={25}
                 containerStyle={{ alignSelf: 'center' }} />
             }
             onChangeText={login => this.setCredentials('login', login)}

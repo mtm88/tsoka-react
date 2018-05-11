@@ -159,7 +159,7 @@ class Register extends Component {
                 alignSelf: 'center',
                 paddingLeft: 5,
               }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Email'
@@ -181,7 +181,7 @@ class Register extends Component {
                 alignSelf: 'center',
                 paddingLeft: 5,
               }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Phone'
@@ -203,7 +203,7 @@ class Register extends Component {
                 alignSelf: 'center',
                 paddingLeft: 5,
               }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Password'
@@ -227,7 +227,7 @@ class Register extends Component {
                 alignSelf: 'center',
                 paddingLeft: 5,
               }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Confirm password'
@@ -235,7 +235,7 @@ class Register extends Component {
               onChangeText={cPassword => this.setCredentials('cPassword', cPassword)}
               maxLength={15}
               secureTextEntry={true}
-              errorMessage={user.error || validationError || null}
+              errorMessage={validationError || user.error || null}
               errorStyle={{ alignSelf: 'center', fontSize: 15, paddingTop: 10 }}
 
             />
