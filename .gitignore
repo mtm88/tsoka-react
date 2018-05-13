@@ -18,6 +18,15 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< ours
 # builds
 /ios/build
 /android/build
+=======
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
+>>>>>>> theirs

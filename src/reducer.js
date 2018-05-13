@@ -16,6 +16,8 @@ export const GET_MEMBER_INFO = 'tsoka/members/DETAILS';
 export const GET_MEMBER_SUCCESS = 'tsoka/members/DETAILS_SUCCESS';
 export const GET_MEMBER_FAIL = 'tsoka/members/DETAILS_FAIL';
 
+export const FB_USER_LOGIN = 'tsoka/member/FB_LOGIN';
+
 export const USER_LOGIN = 'tsoka/member/LOGIN';
 export const USER_LOGIN_SUCCESS = 'tsoka/member/LOGIN_SUCCESS';
 export const USER_LOGIN_FAIL = 'tsoka/member/LOGIN_FAIL';
@@ -29,6 +31,7 @@ export const USER_REGISTER_FAIL = 'tsoka/member/REGISTER_FAIL';
 export const CONFIRM_CODE = 'tsoka/member/CONFIRM_CODE';
 export const CONFIRM_CODE_SUCCESS = 'tsoka/member/CONFIRM_CODE_SUCCESS';
 export const CONFIRM_CODE_FAIL = 'tsoka/member/CONFIRM_CODE_FAIL';
+
 
 const initialState = {
   accommodations: [],
@@ -55,6 +58,7 @@ const initialState = {
     loggedIn: false,
     failedAuth: false,
     login: null,
+    fbLogin: false,
     error: null,
     confirmationCode: null,
   },
@@ -166,6 +170,16 @@ export default function reducer(state = initialState, action) {
       };
 
 
+    case FB_USER_LOGIN:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          login: action.payload.userData.credentials.userId,
+          loggedIn: true,
+          fbLogin: true,
+        },
+      };
     case USER_LOGIN:
       return { ...state, loading: true };
     case USER_LOGIN_SUCCESS:
@@ -175,6 +189,7 @@ export default function reducer(state = initialState, action) {
         user: {
           ...state.user,
           loggedIn: true,
+          fbLogin: false,
           login: action.meta.previousAction.payload.login,
         },
       };
@@ -193,7 +208,9 @@ export default function reducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
+          login: null,
           loggedIn: false,
+          fbLogin: false,
           failedAuth: false,
         },
       };
@@ -261,6 +278,15 @@ export function login(login, password) {
       }
     }
   }
+}
+
+export function fbLogin(userData) {
+  return {
+    type: FB_USER_LOGIN,
+    payload: {
+      userData,
+    },
+  };
 }
 
 export function logout() {

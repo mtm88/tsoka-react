@@ -7,6 +7,8 @@ import { Icon } from 'react-native-elements';
 
 import { logout } from './../reducer';
 
+const { FBLogin, FBLoginManager } = require('react-native-facebook-login');
+
 class DrawerContent extends Component {
   constructor(props) {
     super(props);
@@ -43,14 +45,22 @@ class DrawerContent extends Component {
                   }
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 50, paddingHorizontal: 20 }}>
-                    <Icon
-                      name={icons[i]}
-                      color='#fff'
-                      size={35}
-                      containerStyle={{ flex: 1 }}
-                      underlayColor='transparent' />
+                    {!user.fbLogin || (user.fbLogin && item.routeName !== 'Logout') ?
+                      <Icon
+                        name={icons[i]}
+                        color='#fff'
+                        size={35}
+                        containerStyle={{ flex: 1 }}
+                        underlayColor='transparent' /> : null
+                    }
                     <View style={{ flex: 4, padding: 7 }}>
-                      <Text style={{ color: 'white', fontSize: 18 }}>{item.routeName}</Text>
+                      {user.fbLogin && (item.routeName === 'Logout') ?
+                        <FBLogin
+                          style={{ marginLeft: 15 }}
+                        />
+                        :
+                        <Text style={{ color: 'white', fontSize: 18 }}>{item.routeName}</Text>
+                      }
                     </View>
                   </View>
                 </TouchableOpacity>

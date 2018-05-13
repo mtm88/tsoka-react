@@ -4,9 +4,11 @@ import { Icon, Input, SocialIcon } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 
-import { login } from './../reducer';
+import { login, fbLogin } from './../reducer';
 
 import AppText from './../components/AppText';
+
+const { FBLogin, FBLoginManager } = require('react-native-facebook-login');
 
 class Login extends Component {
   state = {
@@ -115,15 +117,18 @@ class Login extends Component {
               )
             }
           </TouchableOpacity>
-
-          <SocialIcon
-            style={{ width: 265, alignSelf: 'center', marginTop: 50 }}
-            fontStyle={{ fontSize: 16 }}
-            iconSize={20}
-            title='Sign In With Facebook'
-            button
-            type='facebook'
-          />
+          <View style={{ width: 265, marginTop: 30, alignSelf: 'center' }}>
+            <FBLogin
+              style={{ marginLeft: 39 }}
+              permissions={["email", "user_friends"]}
+              ref={(fbLogin) => { this.fbLogin = fbLogin }}
+              loginBehavior={FBLoginManager.LoginBehaviors.Native}
+              onLogin={(userData) => {
+                this.props.fbLogin(userData);
+                return navigation.navigate('InitialRoute');
+              }}
+            />
+          </View>
 
           <View style={{ alignItems: 'center', paddingTop: 20 }}>
             <AppText style={{ color: 'black', fontSize: 16 }}>Don't have an account yet?</AppText>
@@ -142,6 +147,7 @@ const mapStateToProps = (({ user, loading }) => ({ user, loading }));
 
 const mapDispatchToProps = {
   login,
+  fbLogin,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
