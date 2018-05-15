@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
 
-import { removeFromCart, filterCart } from './../reducer';
+import { removeFromCart, filterCart, applyToCart } from './../reducer';
 
 import AppText from './../components/AppText';
 
@@ -14,8 +14,27 @@ class Cart extends Component {
     drawerLabel: 'Cart',
   })
 
+  async applyCart() {
+    const {
+      navigation,
+      cart: { items: { rooms, events, activities, transport }, filter },
+      user,
+    } = this.props;
+
+    try {
+      await this.props.applyToCart({ rooms, events, activities, transport }, user);
+      Alert.alert('Reservation status', 'Your reservation is now being processed. Please wait for an approval from one of the partners.');
+    } catch (error) {
+      Alert.alert('Reservation status', 'There\'s been a problem with processing your reservation. Please try again or contact support.');
+    }
+  }
+
   render() {
-    const { navigation, cart: { items: { rooms, events, activities, transport }, filter } } = this.props;
+    const {
+      navigation,
+      cart: { items: { rooms, events, activities, transport }, filter },
+      user,
+    } = this.props;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
@@ -24,14 +43,30 @@ class Cart extends Component {
             name='menu'
             color='#fff'
             size={35}
-            containerStyle={{ flex: 2 }}
+            containerStyle={{ flex: 1 }}
             underlayColor='transparent'
             onPress={() => navigation.navigate('DrawerToggle')} />
-          <View style={{ flex: 6, alignItems: 'center' }}>
+          <View style={{ flex: 3, alignItems: 'center' }}>
             <AppText style={{ color: '#fff', fontSize: 20 }}>Cart</AppText>
           </View>
-          <View style={{ flex: 2 }}>
-          </View>
+          {(rooms.length || events.length || activities.length || transport.length) ?
+            (
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1 }}  >
+                  <Icon
+                    name='send'
+                    type='font-awesome'
+                    color='#fff'
+                    size={20}
+                    containerStyle={{ flex: 1 }}
+                    underlayColor='transparent' />
+                </View>
+                <TouchableOpacity style={{ flex: 3 }} onPress={() => this.applyCart()} >
+                  <AppText style={{ color: 'white', fontWeight: '700', fontSize: 11, padding: 5 }}>SUBMIT</AppText>
+                </TouchableOpacity>
+              </View>
+            ) : <View style={{ flex: 1 }}></View>
+          }
         </View>
 
         { /* FILTERING PANEL */}
@@ -122,11 +157,12 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({ cart });
+const mapStateToProps = ({ cart, user }) => ({ cart, user });
 
 const mapDispatchToProps = {
   removeFromCart,
   filterCart,
+  applyToCart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

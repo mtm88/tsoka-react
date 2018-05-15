@@ -6,11 +6,19 @@ export const FETCH_SINGLE_INFO = 'tsoka/FETCH_SINGLE';
 export const FETCH_SINGLE_SUCCESS = 'tsoka/FETCH_SINGLE_SUCCESS';
 export const FETCH_SINGLE_FAIL = 'tsoka/FETCH_SINGLE_FAIL';
 
+export const FETCH_PAYMENTS = 'tsoka/FETCH_PAYMENTS';
+export const FETCH_PAYMENTS_SUCCESS = 'tsoka/FETCH_PAYMENTS_SUCCESS';
+export const FETCH_PAYMENTS_FAIL = 'tsoka/FETCH_PAYMENTS_FAIL';
+
 export const SET_SELECTION = 'tsoka/selection/SET';
 
 export const ADD_TO_CART = 'tsoka/cart/ADD';
 export const REMOVE_FROM_CART = 'tsoka/cart/REMOVE';
 export const FILTER_CART = 'tsoka/cart/FILTER';
+
+export const APPLY_TO_CART = 'tsoka/cart/APPLY_TO_CART';
+export const APPLY_TO_CART_SUCCESS = 'tsoka/cart/APPLY_TO_CART_SUCCESS';
+export const APPLY_TO_CART_FAIL = 'tsoka/cart/APPLY_TO_CART_FAIL';
 
 export const GET_MEMBER_INFO = 'tsoka/members/DETAILS';
 export const GET_MEMBER_SUCCESS = 'tsoka/members/DETAILS_SUCCESS';
@@ -55,12 +63,14 @@ const initialState = {
     blog: null,
   },
   user: {
+    id: null,
     loggedIn: false,
     failedAuth: false,
     login: null,
     fbLogin: false,
     error: null,
     confirmationCode: null,
+    payments: [],
   },
   loading: false,
 };
@@ -104,6 +114,30 @@ export default function reducer(state = initialState, action) {
         loading: false,
         error: 'Error while fetching accommodation details',
       };
+
+    case FETCH_PAYMENTS:
+      return {
+        ...state,
+        loading: true,
+      }
+    case FETCH_PAYMENTS_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          payments: action.payload.data,
+        },
+        loading: false,
+      }
+    case FETCH_PAYMENTS_FAIL:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          payments: [],
+        },
+        loading: false,
+      }
 
     case SET_SELECTION:
       const selections = state.selections;
@@ -155,6 +189,34 @@ export default function reducer(state = initialState, action) {
         },
       };
 
+    case APPLY_TO_CART:
+      return {
+        ...state,
+        loading: true,
+      }
+    case APPLY_TO_CART_SUCCESS:
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          items: {
+            ...state.cart.items,
+            rooms: [],
+            events: [],
+            activities: [],
+            transport: [],
+          },
+          filter: 'All',
+        },
+        loading: false,
+      }
+    case APPLY_TO_CART_FAIL:
+      return {
+        ...state,
+        loading: false,
+      }
+
+
     case GET_MEMBER_INFO:
       return { ...state, loading: true };
     case GET_MEMBER_SUCCESS:
@@ -176,6 +238,7 @@ export default function reducer(state = initialState, action) {
         user: {
           ...state.user,
           login: action.payload.userData.credentials.userId,
+          id: action.payload.userData.credentials.userId,
           loggedIn: true,
           fbLogin: true,
         },
@@ -191,6 +254,7 @@ export default function reducer(state = initialState, action) {
           loggedIn: true,
           fbLogin: false,
           login: action.meta.previousAction.payload.login,
+          id: action.payload.data,
         },
       };
     case USER_LOGIN_FAIL:
@@ -208,6 +272,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
+          id: null,
           login: null,
           loggedIn: false,
           fbLogin: false,
@@ -343,6 +408,17 @@ export function getSingle(table, recordType, id, prop) {
   };
 }
 
+export function fetchPayments(userId) {
+  return {
+    type: FETCH_PAYMENTS,
+    payload: {
+      request: {
+        url: `fetch_payments.php?userId=${userId}`,
+      },
+    },
+  };
+}
+
 export function setSelection(scope, selection) {
   return {
     type: SET_SELECTION,
@@ -378,6 +454,22 @@ export function filterCart(filter) {
     type: FILTER_CART,
     payload: {
       filter,
+    }
+  }
+}
+
+export function applyToCart(items, user) {
+  return {
+    type: APPLY_TO_CART,
+    payload: {
+      request: {
+        method: 'post',
+        data: {
+          items,
+          userID: user.id,
+        },
+        url: '/apply_to_cart.php',
+      }
     }
   }
 }

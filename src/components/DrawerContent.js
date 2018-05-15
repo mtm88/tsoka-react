@@ -15,7 +15,7 @@ class DrawerContent extends Component {
   }
 
   render() {
-    const icons = ['home', 'shopping-cart', 'comment', 'settings', 'power'];
+    const icons = ['home', 'shopping-cart', 'payment', 'comment', 'settings', 'power'];
 
     const { user } = this.props;
 
