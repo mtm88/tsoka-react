@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import PayPal from 'react-native-paypal-wrapper';
+
 import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
@@ -17,6 +19,20 @@ class Payments extends Component {
   componentWillMount() {
     const { user: { id } } = this.props;
     this.props.fetchPayments(id);
+  }
+
+  processPayment() {
+    PayPal.initialize(PayPal.NO_NETWORK, "<your-client-id>");
+    PayPal.pay({
+      price: '40.70',
+      currency: 'MYR',
+      description: 'Your description goes here',
+    }).then(confirm => {
+      alert('test message');
+    })
+    .catch(error => {
+      alert(`error message: ${error}`);
+      });
   }
 
   render() {
@@ -73,7 +89,7 @@ class Payments extends Component {
                         record.guests,
                         (
                           <TouchableOpacity
-                            onPress={() => { }}
+                            onPress={() => { this.processPayment() }}
                             style={{ flex: 1 }}>
                             <View style={{ flex: 1, padding: 2 }}>
                               <Icon
@@ -94,7 +110,7 @@ class Payments extends Component {
             </View>
 
             <View style={{ flex: 1, marginHorizontal: 20, marginTop: 35, padding: 8 }} >
-            <View style={{ backgroundColor: '#5b1f07', width: 95 }}  >
+              <View style={{ backgroundColor: '#5b1f07', width: 95 }}  >
                 <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Approved</AppText>
               </View>
 
