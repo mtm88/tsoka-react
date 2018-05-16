@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+
 import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
@@ -34,6 +36,7 @@ class Cart extends Component {
       navigation,
       cart: { items: { rooms, events, activities, transport }, filter },
       user,
+      accommodations,
     } = this.props;
 
     return (
@@ -101,24 +104,26 @@ class Cart extends Component {
                     {this.props.cart.items[filterOp.toLowerCase()].length ? (
                       <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
                         <Row
-                          flexArr={[3, 3, 2, 2, 2, 2]}
-                          data={['Start Date', 'End Date', 'People', 'Rooms', 'Price', 'Action']}
+                          flexArr={[4, 2, 2, 2, 2, 2]}
+                          data={['Hotel Name', 'Nights', 'People', 'Rooms', 'Price', 'Action']}
                           textStyle={{
                             color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                           }}
                           style={{ height: 30, backgroundColor: '#5b1f07' }} />
                         <TableWrapper style={{ backgroundColor: '#FFD99C' }}>
                           <Rows
-                            flexArr={[3, 3, 2, 2, 2, 2]}
+                            flexArr={[4, 2, 2, 2, 2, 2]}
                             style={{ height: 30 }}
                             textStyle={{
                               color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
                             }}
                             data={
                               this.props.cart.items[filterOp.toLowerCase()].map(({ key, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
+                                const relatedAccommodation = accommodations.find(({ id }) => item.acco_id === id);
+                                const nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
                                 return [
-                                  startDate,
-                                  endDate,
+                                  relatedAccommodation.hotel_name,
+                                  nights,
                                   noOfPeople,
                                   noOfRooms,
                                   item.price,
@@ -157,7 +162,7 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = ({ cart, user }) => ({ cart, user });
+const mapStateToProps = ({ cart, user, accommodations }) => ({ cart, user, accommodations });
 
 const mapDispatchToProps = {
   removeFromCart,

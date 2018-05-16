@@ -94,8 +94,8 @@ class Payments extends Component {
             </View>
 
             <View style={{ flex: 1, marginHorizontal: 20, marginTop: 35, padding: 8 }} >
-            <View style={{ backgroundColor: '#5b1f07', width: 50 }}  >
-                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Accepted</AppText>
+            <View style={{ backgroundColor: '#5b1f07', width: 95 }}  >
+                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Approved</AppText>
               </View>
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
