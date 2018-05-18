@@ -44,6 +44,11 @@ export const FETCH_CLIENT_TOKEN = 'tsoka/braintree/CLIENT_TOKEN';
 export const FETCH_CLIENT_TOKEN_SUCCESS = 'tsoka/braintree/CLIENT_TOKEN_SUCCESS';
 export const FETCH_CLIENT_TOKEN_FAIL = 'tsoka/braintree/CLIENT_TOKEN_FAIL';
 
+export const CREATE_BRAINTREE_TRANSACTION = 'tsoka/braintree/TRANSACTION';
+export const CREATE_BRAINTREE_TRANSACTION_SUCCESS = 'tsoka/braintree/TRANSACTION_SUCCESS';
+export const CREATE_BRAINTREE_TRANSACTION_FAIL = 'tsoka/braintree/TRANSACTION_FAIL';
+
+export const UPDATE_PAYMENT = 'tsoka/payment/UPDATE';
 
 const initialState = {
   accommodations: [],
@@ -77,6 +82,7 @@ const initialState = {
     payments: [],
     braintree: {
       clientToken: null,
+      transactionSuccessfull: null,
     },
   },
   loading: false,
@@ -359,6 +365,53 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: false,
       }
+    }
+
+    case CREATE_BRAINTREE_TRANSACTION: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case CREATE_BRAINTREE_TRANSACTION_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          braintree: {
+            ...state.user.braintree,
+            transactionSuccessfull: true,
+          },
+        },
+      };
+    }
+    case CREATE_BRAINTREE_TRANSACTION_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          braintree: {
+            ...state.user.braintree,
+            transactionSuccessfull: false,
+          },
+        },
+      };
+    } 
+    
+    case UPDATE_PAYMENT: {
+      const updatedPayments = [...state.user.payments];
+      const relatedPayment = updatedPayments.find(payment => payment.id === action.payload.record.id);
+      relatedPayment.status = 1;
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          payments: updatedPayments,
+        },
+      };
     }  
 
     default: return state;
@@ -527,4 +580,29 @@ export function fetchClientToken() {
       }
     }
   }
+}
+
+export function createTransaction({ nonce, amount }) {
+  return {
+    type: CREATE_BRAINTREE_TRANSACTION,
+    payload: {
+      request: {
+        method: 'post',
+        data: {
+          nonce,
+          amount,
+        },
+        url: '/braintree/create_transaction.php',
+      }
+    }
+  }
+}
+
+export function updatePayment(record) {
+  return {
+    type: UPDATE_PAYMENT,
+    payload: {
+      record,
+    },
+  };
 }

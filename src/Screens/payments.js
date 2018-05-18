@@ -5,9 +5,11 @@ import { View, ScrollView, TouchableOpacity, Alert, ActivityIndicator, WebView }
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
 
-import { fetchPayments, fetchClientToken } from './../reducer';
+import { fetchPayments, fetchClientToken, createTransaction, updatePayment } from './../reducer';
 
 import AppText from './../components/AppText';
+
+const BTClient = require('react-native-braintree-xplat');
 
 class Payments extends Component {
   state = {
@@ -23,14 +25,22 @@ class Payments extends Component {
     this.props.fetchPayments(id);
   }
 
-  async processPayment() {
+  async processPayment(record) {
     try {
       await this.props.fetchClientToken();
 
-      this.setState({
-        ongoingPayment: true,
-      });
+      BTClient.setup(this.props.user.braintree.clientToken);
 
+      const nonce = await BTClient.showPaymentViewController();
+
+      const paymentResults = await this.props.createTransaction({ nonce, amount: record.costs });
+
+      if (paymentResults.payload.data.success) {
+        Alert.alert('Payment successfull', 'Thank you. Your payment has been processed and your reservation is now approved');
+        return this.props.updatePayment(record);
+      }
+
+      return Alert.alert('Payment Error', 'We\'re sorry, but there was a problem with processing your payment. Please try again.')
     } catch (error) {
       console.error(error);
     }
@@ -43,29 +53,11 @@ class Payments extends Component {
     const accepted = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.accepted);
 
     if (loading) {
-      return <Spinner />
+      return <Spinner />;
     }
-
-    if (this.state.ongoingPayment) {
-    }
-
-    const html = `
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Simple todo with React</title>
-    </head>
-    <body>
-      <div>TEST</div>
-        <div id="dropin-container"></div>
-    </body>
-    </html>
-`;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
-        <WebView source={{ html }}
-          style={{ flex: 1 }} />
         <View style={{ backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
           <Icon
             name='menu'
@@ -97,7 +89,7 @@ class Payments extends Component {
                     color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
-                <TableWrapper style={{ backgroundColor: '#FFD99C' }}>
+                <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
                     flexArr={[3, 3, 2, 2, 2]}
                     style={{ height: 30 }}
@@ -112,7 +104,7 @@ class Payments extends Component {
                         record.guests,
                         (
                           <TouchableOpacity
-                            onPress={() => { this.processPayment() }}
+                            onPress={() => { this.processPayment(record) }}
                             style={{ flex: 1 }}>
                             <View style={{ flex: 1, padding: 2 }}>
                               <Icon
@@ -178,6 +170,8 @@ const mapStateToProps = ({ user, loading }) => ({ user, loading });
 const mapDispatchToProps = {
   fetchPayments,
   fetchClientToken,
+  createTransaction,
+  updatePayment,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payments);
