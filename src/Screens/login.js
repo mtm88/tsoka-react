@@ -44,6 +44,7 @@ class Login extends Component {
           <Input
             containerStyle={{ alignSelf: 'center', paddingTop: 30 }}
             inputContainerStyle={{
+              padding: 10,
               height: 45,
               width: 280,
               borderRadius: 25,
@@ -52,9 +53,9 @@ class Login extends Component {
               borderLeftWidth: 1.5,
               borderRightWidth: 1.5,
               borderColor: '#5b1f07',
-              alignSelf: 'center'
+              alignSelf: 'center',
             }}
-            inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
+            inputStyle={{ fontSize: 20, paddingVertical: 5, color: '#5b1f07' }}
             autoCapitalize={'none'}
             autoCorrect={false}
             placeholder='Email or Phone'
@@ -85,7 +86,7 @@ class Login extends Component {
               borderColor: '#5b1f07',
               alignSelf: 'center'
             }}
-            inputStyle={{ fontSize: 20, paddingTop: 5, paddingLeft: 5, color: '#5b1f07' }}
+            inputStyle={{ fontSize: 20, paddingVertical: 5, color: '#5b1f07' }}
             autoCapitalize={'none'}
             autoCorrect={false}
             placeholder='Password'
@@ -96,7 +97,7 @@ class Login extends Component {
                 name='lock'
                 color='#5b1f07'
                 size={28}
-                containerStyle={{ paddingLeft: 5, alignSelf: 'center' }} />
+                containerStyle={{ paddingLeft: 17, alignSelf: 'center' }} />
             }
             onChangeText={password => this.setCredentials('password', password)}
             maxLength={15}
@@ -117,9 +118,9 @@ class Login extends Component {
               )
             }
           </TouchableOpacity>
-          <View style={{ width: 265, marginTop: 30, alignSelf: 'center' }}>
+          <View style={{ marginTop: 30, alignSelf: 'center' }}>
             <FBLogin
-              style={{ marginLeft: 39 }}
+              style={{ alignSelf: 'center' }}
               permissions={["email", "user_friends"]}
               ref={(fbLogin) => { this.fbLogin = fbLogin }}
               loginBehavior={FBLoginManager.LoginBehaviors.Native}
