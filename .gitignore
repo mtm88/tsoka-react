@@ -21,6 +21,7 @@ yarn-error.log*
 # builds
 /ios/build
 /android/app/build
+/android/build
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
