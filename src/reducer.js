@@ -40,6 +40,10 @@ export const CONFIRM_CODE = 'tsoka/member/CONFIRM_CODE';
 export const CONFIRM_CODE_SUCCESS = 'tsoka/member/CONFIRM_CODE_SUCCESS';
 export const CONFIRM_CODE_FAIL = 'tsoka/member/CONFIRM_CODE_FAIL';
 
+export const FETCH_CLIENT_TOKEN = 'tsoka/braintree/CLIENT_TOKEN';
+export const FETCH_CLIENT_TOKEN_SUCCESS = 'tsoka/braintree/CLIENT_TOKEN_SUCCESS';
+export const FETCH_CLIENT_TOKEN_FAIL = 'tsoka/braintree/CLIENT_TOKEN_FAIL';
+
 
 const initialState = {
   accommodations: [],
@@ -71,6 +75,9 @@ const initialState = {
     error: null,
     confirmationCode: null,
     payments: [],
+    braintree: {
+      clientToken: null,
+    },
   },
   loading: false,
 };
@@ -328,6 +335,32 @@ export default function reducer(state = initialState, action) {
       };
     }
 
+    case FETCH_CLIENT_TOKEN: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case FETCH_CLIENT_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          braintree: {
+            ...state.user.braintree,
+            clientToken: action.payload.data,
+          },
+        },
+      };
+    }
+    case FETCH_CLIENT_TOKEN_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }  
+
     default: return state;
   }
 }
@@ -483,4 +516,15 @@ export function getMember(memberId) {
       },
     },
   };
+}
+
+export function fetchClientToken() {
+  return {
+    type: FETCH_CLIENT_TOKEN,
+    payload: {
+      request: {
+        url: '/braintree/client_token.php',
+      }
+    }
+  }
 }
