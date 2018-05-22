@@ -70,15 +70,14 @@ class Payments extends Component {
             <AppText style={{ color: '#fff', fontSize: 20 }}>Payments</AppText>
           </View>
           <View style={{ flex: 1 }}></View>
-          }
         </View>
 
         <View style={{ flex: 1 }}>
           <ScrollView style={{ marginTop: 20, marginBottom: 20, paddingTop: 10, paddingHorizontal: 10 }}>
 
             <View style={{ flex: 1, marginHorizontal: 20, padding: 8 }} >
-              <View style={{ backgroundColor: '#5b1f07', width: 160 }}  >
-                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Awaiting payment</AppText>
+              <View style={{ backgroundColor: '#5b1f07', paddingHorizontal: 20, paddingVertical: 8 }}>
+                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>Awaiting payment</AppText>
               </View>
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
@@ -125,8 +124,8 @@ class Payments extends Component {
             </View>
 
             <View style={{ flex: 1, marginHorizontal: 20, marginTop: 35, padding: 8 }} >
-              <View style={{ backgroundColor: '#5b1f07', width: 95 }}  >
-                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Approved</AppText>
+              <View style={{ backgroundColor: '#5b1f07', paddingHorizontal: 20, paddingVertical: 8 }}>
+                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>Approved</AppText>
               </View>
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
@@ -137,7 +136,7 @@ class Payments extends Component {
                     color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
-                <TableWrapper style={{ backgroundColor: '#FFD99C' }}>
+                <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
                     flexArr={[3, 3, 2, 2, 2, 2]}
                     style={{ height: 30 }}
@@ -154,13 +153,11 @@ class Payments extends Component {
                     })}
                   />
                 </TableWrapper>
-
               </Table>
-
             </View>
           </ScrollView>
         </View>
-      </View >
+      </View>
     );
   }
 }

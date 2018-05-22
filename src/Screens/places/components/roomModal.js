@@ -214,6 +214,7 @@ const selectBackdropStyle = {
 
 const selectOptionListStyle = {
   backgroundColor: '#f4b44c',
+  padding: 5,
 }
 
 const selectOptionTextStyle = {

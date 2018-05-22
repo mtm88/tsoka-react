@@ -5,6 +5,7 @@ import Login from './login';
 
 const InitialRoute = ({ loggedIn, navigation }) => (
   loggedIn ? <Drawer /> : <Login navigation={navigation} />
+  // <Drawer />
 );
 
 const mapStateToProps = ({ user: { loggedIn } }) => ({ loggedIn });

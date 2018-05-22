@@ -128,6 +128,12 @@ class Login extends Component {
                 this.props.fbLogin(userData);
                 return navigation.navigate('InitialRoute');
               }}
+              onLoginFound={e => { console.log(e) }}
+              onLoginNotFound={e => { console.log(e) }}
+              onLogout={e => { console.log(e) }}
+              onCancel={e => { console.log(e) }}
+              onPermissionsMissing={e => { console.log(e) }}
+    
             />
           </View>
 

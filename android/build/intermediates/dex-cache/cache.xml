@@ -3,24 +3,6 @@
 
     <item
         is-multidex="false"
-        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_c07a4da6128054fc213e97b13fb338ee897fc7c6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/tsoka/react-native-vector-icons/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/tsoka-react-native-vector-icons-unspecified_4d49b9a9ed598f4978d6e4e384624809068b7e3c.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -36,24 +18,6 @@
         revision="23.0.1"
         sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_72c7a768f2b66bc19f12b70bc5ec8d9223245d89.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_0f57eb835c03f951dd6483177840e9f7f0003f1f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/visa-checkout/1.0.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="707e968a0a7c8add199b53ee50bf0399bf7551d4">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-visa-checkout-1.0.0_24c1707915a9ba326ac9b6e568a7a0c1f4f60543.jar" />
     </item>
     <item
         is-multidex="false"
@@ -75,39 +39,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/gson-2.3.1_a771c01661cbd2e2babe7482567e6944fa5a2b73.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.4.0_ef0a0c058566b41b2d318ee7cc835a24fde30491.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_aa031a836f6f3f538c1d992bf182b088b0719ea0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_242228987e2e88154677bffa0b378b12cbc5891b.jar" />
     </item>
     <item
         is-multidex="false"
@@ -147,6 +84,123 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.paypal.android.sdk/data-collector/2.13.0/a1684a4013790cbfa5dffbf699e65fbc72d4faa5/data-collector-2.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a1684a4013790cbfa5dffbf699e65fbc72d4faa5">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/data-collector-2.13.0_d179aa96a44b9e684b08d29549f9c9e5930a8de8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/core/2.13.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="7f579c48637836a844fa3037a4972bf731c6ac40">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-core-2.13.0_7e7747524a23a82c2027a12321c12bb57230cfb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/drop-in/2.3.8/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="bc5fc7133dda5289ad7922cf89828a4dbaf0246d">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-drop-in-2.3.8_19404b2ba37ebb172b79df260b1def5ff0a8f687.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments/card-form/2.3.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8054ec1098052c14c7755bffce8da7b1da78ddf7">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments-card-form-2.3.2_376bf9660ad962d913e63ff6e7f026044b588644.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/braintree/2.13.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="aeba03b586c408fe3418f1fecdfa82e74d8822a9">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-braintree-2.13.0_a692f96a47e944b90bccdfd0d1297dc835cff5ff.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_1dde75b42f89fca0b7a258fa356fdb85c043ec0d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_c07a4da6128054fc213e97b13fb338ee897fc7c6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/tsoka/react-native-vector-icons/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/tsoka-react-native-vector-icons-unspecified_4d49b9a9ed598f4978d6e4e384624809068b7e3c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_0f57eb835c03f951dd6483177840e9f7f0003f1f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/visa-checkout/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="707e968a0a7c8add199b53ee50bf0399bf7551d4">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-visa-checkout-1.0.0_24c1707915a9ba326ac9b6e568a7a0c1f4f60543.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/gson-2.3.1_a771c01661cbd2e2babe7482567e6944fa5a2b73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_aa031a836f6f3f538c1d992bf182b088b0719ea0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_242228987e2e88154677bffa0b378b12cbc5891b.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.55.4/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -165,15 +219,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.paypal.android.sdk/data-collector/2.13.0/a1684a4013790cbfa5dffbf699e65fbc72d4faa5/data-collector-2.13.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="a1684a4013790cbfa5dffbf699e65fbc72d4faa5">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/data-collector-2.13.0_d179aa96a44b9e684b08d29549f9c9e5930a8de8.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -183,30 +228,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/core/2.13.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="7f579c48637836a844fa3037a4972bf731c6ac40">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-core-2.13.0_7e7747524a23a82c2027a12321c12bb57230cfb0.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.4.0_ad576c9fa60e938a0e268c1e2d0f49dcef71e63d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/drop-in/2.3.8/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="bc5fc7133dda5289ad7922cf89828a4dbaf0246d">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-drop-in-2.3.8_19404b2ba37ebb172b79df260b1def5ff0a8f687.jar" />
     </item>
     <item
         is-multidex="false"
@@ -255,15 +282,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments/card-form/2.3.2/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8054ec1098052c14c7755bffce8da7b1da78ddf7">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments-card-form-2.3.2_376bf9660ad962d913e63ff6e7f026044b588644.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
         jumboMode="false"
         optimize="true"
@@ -306,24 +324,6 @@
         revision="23.0.1"
         sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_531ae601666e198f2e3fd4149af6ee760e7182c6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/braintree/2.13.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="aeba03b586c408fe3418f1fecdfa82e74d8822a9">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-braintree-2.13.0_a692f96a47e944b90bccdfd0d1297dc835cff5ff.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_1dde75b42f89fca0b7a258fa356fdb85c043ec0d.jar" />
     </item>
     <item
         is-multidex="false"
