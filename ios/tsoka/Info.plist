@@ -68,10 +68,10 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-		<key>CFBundleURLSchemes</key>
-		<array>
-			<string>fb818989298310750</string>
-		</array>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb818989298310750</string>
+			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
@@ -86,7 +86,7 @@
 		<string>fbshareextension</string>
 		<string>com.paypal.ppclient.touch.v1</string>
 		<string>com.paypal.ppclient.touch.v2</string>
-		<string>org-appextension-feature-password-management</string>
+		<string>com.venmo.touch.v2</string>
 	</array>
 </dict>
 </plist>

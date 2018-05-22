@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import PayPal from 'react-native-paypal-wrapper';
-
-import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Alert, ActivityIndicator, WebView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
 
-import { fetchPayments } from './../reducer';
+import { fetchPayments, fetchClientToken, createTransaction, updatePayment } from './../reducer';
 
 import AppText from './../components/AppText';
 
+const BTClient = require('react-native-braintree-xplat');
+
 class Payments extends Component {
+  state = {
+    ongoingPayment: false,
+  };
+
   static navigationOptions = () => ({
     drawerLabel: 'Cart',
   })
@@ -21,25 +25,36 @@ class Payments extends Component {
     this.props.fetchPayments(id);
   }
 
-  processPayment() {
-    PayPal.initialize(PayPal.NO_NETWORK, "<your-client-id>");
-    PayPal.pay({
-      price: '40.70',
-      currency: 'MYR',
-      description: 'Your description goes here',
-    }).then(confirm => {
-      alert('test message');
-    })
-    .catch(error => {
-      alert(`error message: ${error}`);
-      });
+  async processPayment(record) {
+    try {
+      await this.props.fetchClientToken();
+
+      BTClient.setup(this.props.user.braintree.clientToken);
+
+      const nonce = await BTClient.showPaymentViewController();
+
+      const paymentResults = await this.props.createTransaction({ nonce, amount: record.costs });
+
+      if (paymentResults.payload.data.success) {
+        Alert.alert('Payment successfull', 'Thank you. Your payment has been processed and your reservation is now approved');
+        return this.props.updatePayment(record);
+      }
+
+      return Alert.alert('Payment Error', 'We\'re sorry, but there was a problem with processing your payment. Please try again.')
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
-    const { navigation, user: { payments } } = this.props;
+    const { navigation, user: { payments }, loading } = this.props;
 
     const awaiting = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.awaiting);
     const accepted = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.accepted);
+
+    if (loading) {
+      return <Spinner />;
+    }
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
@@ -55,15 +70,14 @@ class Payments extends Component {
             <AppText style={{ color: '#fff', fontSize: 20 }}>Payments</AppText>
           </View>
           <View style={{ flex: 1 }}></View>
-          }
         </View>
 
         <View style={{ flex: 1 }}>
           <ScrollView style={{ marginTop: 20, marginBottom: 20, paddingTop: 10, paddingHorizontal: 10 }}>
 
             <View style={{ flex: 1, marginHorizontal: 20, padding: 8 }} >
-              <View style={{ backgroundColor: '#5b1f07', width: 160 }}  >
-                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Awaiting payment</AppText>
+              <View style={{ backgroundColor: '#5b1f07', paddingHorizontal: 20, paddingVertical: 8 }}>
+                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>Awaiting payment</AppText>
               </View>
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
@@ -74,7 +88,7 @@ class Payments extends Component {
                     color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
-                <TableWrapper style={{ backgroundColor: '#FFD99C' }}>
+                <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
                     flexArr={[3, 3, 2, 2, 2]}
                     style={{ height: 30 }}
@@ -89,7 +103,7 @@ class Payments extends Component {
                         record.guests,
                         (
                           <TouchableOpacity
-                            onPress={() => { this.processPayment() }}
+                            onPress={() => { this.processPayment(record) }}
                             style={{ flex: 1 }}>
                             <View style={{ flex: 1, padding: 2 }}>
                               <Icon
@@ -110,8 +124,8 @@ class Payments extends Component {
             </View>
 
             <View style={{ flex: 1, marginHorizontal: 20, marginTop: 35, padding: 8 }} >
-              <View style={{ backgroundColor: '#5b1f07', width: 95 }}  >
-                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', padding: 6 }}>Approved</AppText>
+              <View style={{ backgroundColor: '#5b1f07', paddingHorizontal: 20, paddingVertical: 8 }}>
+                <AppText style={{ color: 'white', fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>Approved</AppText>
               </View>
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
@@ -122,7 +136,7 @@ class Payments extends Component {
                     color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
-                <TableWrapper style={{ backgroundColor: '#FFD99C' }}>
+                <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
                     flexArr={[3, 3, 2, 2, 2, 2]}
                     style={{ height: 30 }}
@@ -139,21 +153,22 @@ class Payments extends Component {
                     })}
                   />
                 </TableWrapper>
-
               </Table>
-
             </View>
           </ScrollView>
         </View>
-      </View >
+      </View>
     );
   }
 }
 
-const mapStateToProps = ({ user }) => ({ user });
+const mapStateToProps = ({ user, loading }) => ({ user, loading });
 
 const mapDispatchToProps = {
   fetchPayments,
+  fetchClientToken,
+  createTransaction,
+  updatePayment,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payments);

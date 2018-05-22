@@ -34,7 +34,7 @@ class Home extends Component {
             indicator={ProgressBar}
             indicatorProps={{
               color: '#5b1f07',
-              progress: 1
+              progress: 1,
             }}
             source={{ uri }}
           />
@@ -89,13 +89,13 @@ class Home extends Component {
             containerStyle={{ flex: 3, alignSelf: 'center' }}
             inputContainerStyle={{
               backgroundColor: 'rgba(244,180,76,0.6)',
-              height: 45,
               width: 280,
               borderRadius: 8,
               borderBottomWidth: 0,
-              alignSelf: 'center'
+              alignSelf: 'center',
+              padding: 5,
             }}
-            inputStyle={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}
+            inputStyle={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingVertical: 5 }}
             autoCapitalize={'none'}
             autoCorrect={false}
             placeholder='Where to?'
@@ -141,6 +141,8 @@ const fontFamily = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 0,
+    margin: 0,
   },
   topSearchStyle: {
     overlayColor: '#461700',
