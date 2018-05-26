@@ -5,7 +5,7 @@ import { View, ScrollView, TouchableOpacity, Alert, ActivityIndicator, WebView }
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
 
-import { fetchPayments, fetchClientToken, createTransaction, updatePayment } from './../reducer';
+import { fetchPayments, fetchClientToken, createTransaction, updatePayment, list } from './../reducer';
 
 import AppText from './../components/AppText';
 
@@ -23,6 +23,7 @@ class Payments extends Component {
   componentWillMount() {
     const { user: { id } } = this.props;
     this.props.fetchPayments(id);
+    this.props.list('accommodations');
   }
 
   async processPayment(record) {
@@ -45,12 +46,12 @@ class Payments extends Component {
   }
 
   render() {
-    const { navigation, user: { payments }, loading } = this.props;
+    const { navigation, user: { payments }, accommodations, loading } = this.props;
 
     const awaiting = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.awaiting);
     const accepted = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.accepted);
 
-    if (loading) {
+    if (loading || !accommodations.length) {
       return <Spinner />;
     }
 
@@ -80,25 +81,26 @@ class Payments extends Component {
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
                 <Row
-                  flexArr={[3, 3, 2, 2, 2]}
-                  data={['Check In', 'Check out', 'Rooms', 'Guests', 'Pay']}
+                  flexArr={[3, 3, 3, 2, 1]}
+                  data={['Check In', 'Check out', 'Place Name', 'Total', 'Pay']}
                   textStyle={{
                     color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
                 <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
-                    flexArr={[3, 3, 2, 2, 2]}
+                    flexArr={[3, 3, 3, 2, 1]}
                     style={{ height: 30 }}
                     textStyle={{
                       color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
                     }}
                     data={awaiting.map((record) => {
+                      debugger;
                       return [
                         record.check_in,
                         record.check_out,
-                        record.rooms,
-                        record.guests,
+                        accommodations.find(({ id }) => id === record.acco_id).hotel_name,
+                        record.costs,
                         (
                           <TouchableOpacity
                             onPress={() => { this.processPayment(record) }}
@@ -128,15 +130,15 @@ class Payments extends Component {
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
                 <Row
-                  flexArr={[3, 3, 2, 2]}
-                  data={['Check In', 'Check out', 'Rooms', 'Guests']}
+                  flexArr={[3, 3, 3, 2]}
+                  data={['Check In', 'Check out', 'Place Name', 'Total']}
                   textStyle={{
                     color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
                 <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
-                    flexArr={[3, 3, 2, 2, 2, 2]}
+                    flexArr={[3, 3, 3, 2]}
                     style={{ height: 30 }}
                     textStyle={{
                       color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
@@ -145,8 +147,8 @@ class Payments extends Component {
                       return [
                         record.check_in,
                         record.check_out,
-                        record.rooms,
-                        record.guests,
+                        accommodations.find(({ id }) => id === record.acco_id).hotel_name,
+                        record.costs,
                       ];
                     })}
                   />
@@ -160,13 +162,14 @@ class Payments extends Component {
   }
 }
 
-const mapStateToProps = ({ user, loading }) => ({ user, loading });
+const mapStateToProps = ({ user, loading, accommodations }) => ({ user, loading, accommodations });
 
 const mapDispatchToProps = {
   fetchPayments,
   fetchClientToken,
   createTransaction,
   updatePayment,
+  list,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payments);
