@@ -30,9 +30,7 @@ class Payments extends Component {
       await this.props.fetchClientToken();
 
       BTClient.setup(this.props.user.braintree.clientToken);
-
       const nonce = await BTClient.showPaymentViewController();
-
       const paymentResults = await this.props.createTransaction({ nonce, amount: record.costs });
 
       if (paymentResults.payload.data.success) {
