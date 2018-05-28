@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { View, Platform, ScrollView, Image, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { Icon, Input, SocialIcon } from 'react-native-elements';
 
 import { connect } from 'react-redux';
@@ -67,8 +67,8 @@ class Register extends Component {
     const { validationError } = this.state;
 
     return (
-      <KeyboardAvoidingView enabled behavior='padding' style={{ flex: 1, backgroundColor: '#f4b44c' }}>
-        <View style={{ alignItems: 'center', justifyContent: 'flex-end', paddingTop: 50, paddingBottom: 20 }}>
+      <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? 'padding' : null} style={{ flex: 1, backgroundColor: '#f4b44c' }}>
+        <View style={{ alignItems: 'center', justifyContent: 'flex-end', paddingTop: 20, paddingBottom: 20 }}>
           <AppText style={{ fontWeight: 'bold', fontSize: 20, paddingBottom: 5 }}>REGISTER</AppText>
           <AppText>Please fill in your details</AppText>
         </View>
@@ -77,21 +77,12 @@ class Register extends Component {
           <ScrollView>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <Input
-                containerStyle={{ paddingTop: 10, flex: 1 }}
+                containerStyle={{ flex: 1, paddingTop: 10 }}
                 inputContainerStyle={{
-                  height: 45,
-                  width: 135,
-                  borderRadius: 25,
-                  borderBottomWidth: 1.5,
-                  borderTopWidth: 1.5,
-                  borderLeftWidth: 1.5,
-                  borderRightWidth: 1.5,
-                  borderColor: '#5b1f07',
+                  ...topInputsStyle,
                   alignSelf: 'flex-end',
-                  marginRight: 5,
-                  paddingLeft: 5,
                 }}
-                inputStyle={{ fontSize: 20, color: '#5b1f07' }}
+                inputStyle={{ fontSize: 20, color: '#5b1f07', paddingVertical: 5 }}
                 autoCapitalize={'words'}
                 autoCorrect={false}
                 placeholder='First Name'
@@ -102,19 +93,10 @@ class Register extends Component {
               <Input
                 containerStyle={{ flex: 1, paddingTop: 10 }}
                 inputContainerStyle={{
-                  height: 45,
-                  width: 135,
-                  borderRadius: 25,
-                  borderBottomWidth: 1.5,
-                  borderTopWidth: 1.5,
-                  borderLeftWidth: 1.5,
-                  borderRightWidth: 1.5,
-                  borderColor: '#5b1f07',
+                  ...topInputsStyle,
                   alignSelf: 'flex-start',
-                  marginLeft: 5,
-                  paddingLeft: 5,
                 }}
-                inputStyle={{ fontSize: 20, color: '#5b1f07' }}
+                inputStyle={{ fontSize: 20, color: '#5b1f07', paddingVertical: 5 }}
                 autoCapitalize={'words'}
                 autoCorrect={false}
                 placeholder='Last Name'
@@ -137,7 +119,7 @@ class Register extends Component {
                 alignSelf: 'center',
                 paddingLeft: 5,
               }}
-              inputStyle={{ fontSize: 20, color: '#5b1f07' }}
+              inputStyle={{ fontSize: 20, color: '#5b1f07', paddingVertical: 5 }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='User name'
@@ -147,19 +129,8 @@ class Register extends Component {
 
             <Input
               containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
-              inputContainerStyle={{
-                height: 45,
-                width: 280,
-                borderRadius: 25,
-                borderBottomWidth: 1.5,
-                borderTopWidth: 1.5,
-                borderLeftWidth: 1.5,
-                borderRightWidth: 1.5,
-                borderColor: '#5b1f07',
-                alignSelf: 'center',
-                paddingLeft: 5,
-              }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
+              inputContainerStyle={inputsStyle}
+              inputStyle={{ fontSize: 20, paddingVertical: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Email'
@@ -169,19 +140,8 @@ class Register extends Component {
 
             <Input
               containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
-              inputContainerStyle={{
-                height: 45,
-                width: 280,
-                borderRadius: 25,
-                borderBottomWidth: 1.5,
-                borderTopWidth: 1.5,
-                borderLeftWidth: 1.5,
-                borderRightWidth: 1.5,
-                borderColor: '#5b1f07',
-                alignSelf: 'center',
-                paddingLeft: 5,
-              }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
+              inputContainerStyle={inputsStyle}
+              inputStyle={{ fontSize: 20, paddingVertical: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Phone'
@@ -191,19 +151,8 @@ class Register extends Component {
 
             <Input
               containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
-              inputContainerStyle={{
-                height: 45,
-                width: 280,
-                borderRadius: 25,
-                borderBottomWidth: 1.5,
-                borderTopWidth: 1.5,
-                borderLeftWidth: 1.5,
-                borderRightWidth: 1.5,
-                borderColor: '#5b1f07',
-                alignSelf: 'center',
-                paddingLeft: 5,
-              }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
+              inputContainerStyle={inputsStyle}
+              inputStyle={{ fontSize: 20, paddingVertical: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Password'
@@ -215,19 +164,8 @@ class Register extends Component {
 
             <Input
               containerStyle={{ alignSelf: 'center', paddingTop: 10 }}
-              inputContainerStyle={{
-                height: 45,
-                width: 280,
-                borderRadius: 25,
-                borderBottomWidth: 1.5,
-                borderTopWidth: 1.5,
-                borderLeftWidth: 1.5,
-                borderRightWidth: 1.5,
-                borderColor: '#5b1f07',
-                alignSelf: 'center',
-                paddingLeft: 5,
-              }}
-              inputStyle={{ fontSize: 20, paddingTop: 5, color: '#5b1f07' }}
+              inputContainerStyle={inputsStyle}
+              inputStyle={{ fontSize: 20, paddingVertical: 5, color: '#5b1f07' }}
               autoCapitalize={'none'}
               autoCorrect={false}
               placeholder='Confirm password'
@@ -254,15 +192,6 @@ class Register extends Component {
                 )
               }
             </TouchableOpacity>
-
-            <SocialIcon
-              style={{ width: 265, alignSelf: 'center', marginTop: 30 }}
-              fontStyle={{ fontSize: 16 }}
-              iconSize={20}
-              title='Sign In With Facebook'
-              button
-              type='facebook'
-            />
           </ScrollView>
         </View>
         <View style={{ paddingVertical: 20 }}></View>
@@ -278,3 +207,29 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
+const topInputsStyle = {
+  height: 45,
+  width: 135,
+  borderRadius: 25,
+  borderBottomWidth: 1.5,
+  borderTopWidth: 1.5,
+  borderLeftWidth: 1.5,
+  borderRightWidth: 1.5,
+  borderColor: '#5b1f07',
+  marginRight: 5,
+  paddingLeft: 5,
+};
+
+const inputsStyle = {
+  height: 45,
+  width: 280,
+  borderRadius: 25,
+  borderBottomWidth: 1.5,
+  borderTopWidth: 1.5,
+  borderLeftWidth: 1.5,
+  borderRightWidth: 1.5,
+  borderColor: '#5b1f07',
+  alignSelf: 'center',
+  paddingLeft: 5,
+};

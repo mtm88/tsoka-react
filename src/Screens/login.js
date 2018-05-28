@@ -118,9 +118,10 @@ class Login extends Component {
               )
             }
           </TouchableOpacity>
-          <View style={{ marginTop: 30, alignSelf: 'center' }}>
+
+          <View style={{ marginTop: 30, alignSelf: 'center', maxHeight: 50 }}>
             <FBLogin
-              style={{ alignSelf: 'center' }}
+              style={{ alignSelf: 'center', paddingBottom: 30 }}
               permissions={["email", "user_friends"]}
               ref={(fbLogin) => { this.fbLogin = fbLogin }}
               loginBehavior={FBLoginManager.LoginBehaviors.Native}
@@ -137,13 +138,12 @@ class Login extends Component {
             />
           </View>
 
-          <View style={{ alignItems: 'center', paddingTop: 20 }}>
+          <View style={{ alignItems: 'center', marginTop: 20 }}>
             <AppText style={{ color: 'black', fontSize: 16 }}>Don't have an account yet?</AppText>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <AppText style={{ fontWeight: 'bold', fontSize: 16 }}> Sign up</AppText>
             </TouchableOpacity>
           </View>
-
         </ScrollView>
       </View>
     )

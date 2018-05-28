@@ -14,7 +14,8 @@ const borderStyles = {
   borderRadius: 30,
   width: 50,
   height: 50,
-  paddingLeft: 15,
+  alignSelf: 'center',
+  textAlign: 'center',
   fontSize: 25,
 };
 
@@ -72,38 +73,43 @@ class Confirm extends Component {
           <View style={{ flex: 1, alignItems: 'center' }}  >
             <TextInput onChangeText={(value) => this.processInput('first', 'second', value)}
               blurOnSubmit={false}
+              underlineColorAndroid='rgba(0,0,0,0)'
               style={{ ...borderStyles }} maxLength={1} secureTextEntry={true} value={this.props.first} />
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}  >
             <TextInput onChangeText={(value) => this.processInput('second', 'third', value)}
               ref={(input) => { this.secondTextInput = input; }}
               blurOnSubmit={false}
+              underlineColorAndroid='rgba(0,0,0,0)'
               style={{ ...borderStyles }} maxLength={1} secureTextEntry={true} value={this.props.second} />
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}  >
             <TextInput onChangeText={(value) => this.processInput('third', 'fourth', value)}
               ref={(input) => { this.thirdTextInput = input; }}
               blurOnSubmit={false}
+              underlineColorAndroid='rgba(0,0,0,0)'
               style={{ ...borderStyles }} maxLength={1} secureTextEntry={true} value={this.props.third} />
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}  >
             <TextInput onChangeText={(value) => this.processInput('fourth', 'fifth', value)}
               ref={(input) => { this.fourthTextInput = input; }}
               blurOnSubmit={false}
+              underlineColorAndroid='rgba(0,0,0,0)'
               style={{ ...borderStyles }} maxLength={1} secureTextEntry={true} value={this.props.fourth} />
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}  >
             <TextInput onChangeText={(fifthValue) => this.confirmCode(fifthValue)}
               ref={(input) => { this.fifthTextInput = input; }}
               blurOnSubmit={false}
+              underlineColorAndroid='rgba(0,0,0,0)'
               style={{ ...borderStyles }} maxLength={1} secureTextEntry={true} value={this.props.fifth} />
           </View>
         </View>
-        {this.state.verificationError &&
-          <View style={{ flex: 5, alignItems: 'center' }}>
+        <View style={{ flex: 5, alignItems: 'center' }}>
+          {this.state.verificationError &&
             <AppText style={{ color: 'red', fontSize: 16 }}>Sorry, incorrect code. Please try again.</AppText>
-          </View>
-        }
+          }
+        </View>
 
       </View>
     );
