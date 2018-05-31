@@ -126,7 +126,7 @@ class Cart extends Component {
                                   nights,
                                   noOfPeople,
                                   noOfRooms,
-                                  item.price,
+                                  `${item.price * noOfRooms}$`,
                                   (
                                     <TouchableOpacity
                                       onPress={() => this.props.removeFromCart(filterOp.toLowerCase(), item.id)}
