@@ -51,7 +51,10 @@ export const CREATE_BRAINTREE_TRANSACTION_FAIL = 'tsoka/braintree/TRANSACTION_FA
 export const UPDATE_PAYMENT = 'tsoka/payment/UPDATE';
 
 const initialState = {
-  accommodations: [],
+  accomodations: [],
+  activities: [],
+  events: [],
+  transports: [],
   places: [],
   place: [],
   blog_posts: [],

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
 import { list, setSelection } from './../reducer';
+import Spinner from './../components/Spinner';
 
 class Home extends Component {
   static navigationOptions = () => ({
@@ -14,6 +15,8 @@ class Home extends Component {
   componentWillMount() {
     // fetch top places, which means flag top = 1
     this.props.list('places', 'top', 1);
+    this.props.list('activities');
+    this.props.list('accomodations');
   }
 
   dispatchSelectionAndNavigate(item) {
@@ -23,6 +26,11 @@ class Home extends Component {
 
   renderItem = ({ item }) => {
     const uri = `${serverUrl}/images/places/${item.image}`;
+    const { activities, accomodations } = this.props;
+
+    const relatedAccommodations = accomodations.filter(({ place_id, cost_per_night }) => (place_id === item.id) && cost_per_night);
+    const sortedAccommodationsByPrice = relatedAccommodations.sort((a, b) => a.cost_per_night - b.cost_per_night);
+    const cheapestAccommodationTotal = sortedAccommodationsByPrice[0] && sortedAccommodationsByPrice[0].cost_per_night * 2;
 
     return (
       <TouchableOpacity
@@ -41,11 +49,17 @@ class Home extends Component {
         </View>
         <View style={{ flex: 1, paddingLeft: 15, paddingBottom: 5 }}>
           <Text style={{ ...fontFamily, color: '#4c0f00', fontSize: 20, paddingTop: 14, fontWeight: 'bold' }}>{item.name}</Text>
-          <Text style={{ ...fontFamily, color: '#ffb41d', fontSize: 15, paddingTop: 16 }}>{`${Math.floor(Math.random() * (40 - 2 + 1)) + 2} Things To Do`}</Text>
+          <Text style={{ ...fontFamily, color: '#ffb41d', fontSize: 15, paddingTop: 16 }}>{`${activities.filter(({ place_id }) => place_id === item.id).length} Things To Do`}</Text>
 
           <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-            <Text style={{ ...fontFamily, color: '#597580', fontSize: 21 }}>${item.cost_per_night ? parseInt(item.cost_per_night, 10).toFixed() : Math.floor(Math.random() * (200 - 30 + 1)) + 30}</Text>
-            <Text style={{ ...fontFamily, color: '#597580', fontSize: 17, paddingTop: 3 }}> per person</Text>
+            {cheapestAccommodationTotal ? (
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ ...fontFamily, color: '#597580', fontSize: 21 }}>${cheapestAccommodationTotal}</Text>
+                <Text style={{ ...fontFamily, color: '#597580', fontSize: 17, paddingTop: 5, paddingLeft: 3 }}> in that Place</Text>
+              </View>
+            ) :
+              <Text style={{ ...fontFamily, color: '#597580', fontSize: 17 }}>No Accommodations available</Text>
+            }
           </View>
         </View>
       </TouchableOpacity>
@@ -53,6 +67,12 @@ class Home extends Component {
   };
 
   render() {
+    const { activities, places, accomodations, loading } = this.props;
+
+    if (loading || !activities.length || !places.length || !accomodations.length) {
+      return <Spinner />;
+    }
+
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -163,11 +183,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ places }) => {
+const mapStateToProps = ({ places = [], activities = [], accomodations = [], loading }) => {
   places = places ? places.map(place => ({ key: place.id, ...place })).filter(({ image }) => image) : [];
 
   return {
     places,
+    activities,
+    accomodations,
+    loading,
   };
 }
 

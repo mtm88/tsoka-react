@@ -53,10 +53,10 @@ class DrawerContent extends Component {
                         containerStyle={{ flex: 1 }}
                         underlayColor='transparent' /> : null
                     }
-                    <View style={{ flex: 4, padding: 7 }}>
+                    <View style={{ flex: 4, padding: 7, maxHeight: 50 }}>
                       {user.fbLogin && (item.routeName === 'Logout') ?
                         <FBLogin
-                          style={{ marginLeft: 15 }}
+                          style={{ alignSelf: 'center', paddingBottom: 30 }}
                         />
                         :
                         <Text style={{ color: 'white', fontSize: 18 }}>{item.routeName}</Text>

@@ -23,7 +23,7 @@ class Payments extends Component {
   componentWillMount() {
     const { user: { id } } = this.props;
     this.props.fetchPayments(id);
-    this.props.list('accommodations');
+    this.props.list('accomodations');
   }
 
   async processPayment(record) {
@@ -46,14 +46,14 @@ class Payments extends Component {
   }
 
   render() {
-    const { navigation, user: { payments }, accommodations, loading } = this.props;
+    const { navigation, user: { payments }, accomodations, loading } = this.props;
 
-    const awaiting = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.awaiting);
-    const accepted = payments.filter(({ status }) => parseInt(status, 10) === paymentIds.accepted);
-
-    if (loading || !accommodations.length) {
+    if (loading || !accomodations.length) {
       return <Spinner />;
     }
+    
+    const awaiting = payments ? payments.filter(({ status }) => parseInt(status, 10) === paymentIds.awaiting): [];
+    const accepted = payments ? payments.filter(({ status }) => parseInt(status, 10) === paymentIds.accepted) : [];
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
@@ -81,15 +81,15 @@ class Payments extends Component {
 
               <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
                 <Row
-                  flexArr={[3, 3, 3, 2, 1]}
+                  flexArr={[3, 3, 3, 2, 2]}
                   data={['Check In', 'Check out', 'Place Name', 'Total', 'Pay']}
                   textStyle={{
-                    color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
+                    color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 3
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
                 <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
                   <Rows
-                    flexArr={[3, 3, 3, 2, 1]}
+                    flexArr={[3, 3, 3, 2, 2]}
                     style={{ height: 30 }}
                     textStyle={{
                       color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
@@ -99,7 +99,7 @@ class Payments extends Component {
                       return [
                         record.check_in,
                         record.check_out,
-                        accommodations.find(({ id }) => id === record.acco_id).hotel_name,
+                        accomodations.find(({ id }) => id === record.acco_id).hotel_name,
                         record.costs,
                         (
                           <TouchableOpacity
@@ -133,7 +133,7 @@ class Payments extends Component {
                   flexArr={[3, 3, 3, 2]}
                   data={['Check In', 'Check out', 'Place Name', 'Total']}
                   textStyle={{
-                    color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
+                    color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 3
                   }}
                   style={{ height: 30, backgroundColor: '#5b1f07' }} />
                 <TableWrapper style={{ backgroundColor: '#FFD99C', minHeight: 30 }}>
@@ -147,7 +147,7 @@ class Payments extends Component {
                       return [
                         record.check_in,
                         record.check_out,
-                        accommodations.find(({ id }) => id === record.acco_id).hotel_name,
+                        accomodations.find(({ id }) => id === record.acco_id).hotel_name,
                         record.costs,
                       ];
                     })}
@@ -162,7 +162,7 @@ class Payments extends Component {
   }
 }
 
-const mapStateToProps = ({ user, loading, accommodations }) => ({ user, loading, accommodations });
+const mapStateToProps = ({ user, loading, accomodations = [] }) => ({ user, loading, accomodations });
 
 const mapDispatchToProps = {
   fetchPayments,

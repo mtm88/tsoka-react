@@ -36,7 +36,7 @@ class Cart extends Component {
       navigation,
       cart: { items: { rooms, events, activities, transport }, filter },
       user,
-      accommodations,
+      accomodations,
     } = this.props;
 
     return (
@@ -119,7 +119,7 @@ class Cart extends Component {
                             }}
                             data={
                               this.props.cart.items[filterOp.toLowerCase()].map(({ key, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
-                                const relatedAccommodation = accommodations.find(({ id }) => item.acco_id === id);
+                                const relatedAccommodation = accomodations.find(({ id }) => item.acco_id === id);
                                 const nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
                                 return [
                                   relatedAccommodation.hotel_name,
@@ -162,7 +162,7 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = ({ cart, user, accommodations }) => ({ cart, user, accommodations });
+const mapStateToProps = ({ cart, user, accomodations }) => ({ cart, user, accomodations });
 
 const mapDispatchToProps = {
   removeFromCart,

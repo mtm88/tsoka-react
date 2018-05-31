@@ -20,9 +20,9 @@ export default Drawer = DrawerNavigator({
   Blog: {
     screen: BlogNavigator,
   },
-  Settings: {
-    screen: Settings,
-  },
+  // Settings: {
+  //   screen: Settings,
+  // },
   Logout: {
     screen: Login,
   },

@@ -34,7 +34,7 @@ class Accomodation extends Component {
 
   componentWillMount() {
     const { id } = this.props.place;
-    this.props.list('accommodations', 'place_id', id);
+    this.props.list('accomodations', 'place_id', id);
   }
 
   dispatchSelectionAndNavigate(item) {
@@ -43,7 +43,7 @@ class Accomodation extends Component {
   }
 
   render() {
-    const { place, accommodations } = this.props;
+    const { place, accomodations } = this.props;
 
     if (place) {
       return (
@@ -52,7 +52,7 @@ class Accomodation extends Component {
 
           <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
             <FlatList
-              data={this.props.accommodations}
+              data={this.props.accomodations}
               renderItem={this.renderItem}
             />
           </View>
@@ -106,9 +106,9 @@ class Accomodation extends Component {
   };
 }
 
-const mapStateToProps = ({ selections: { place }, accommodations }) => ({
+const mapStateToProps = ({ selections: { place }, accomodations }) => ({
   place,
-  accommodations: accommodations ? accommodations.map(acco => ({ ...acco, key: acco.id })) : [],
+  accomodations: accomodations ? accomodations.map(acco => ({ ...acco, key: acco.id })) : [],
 });
 
 const mapDispatchToProps = {
