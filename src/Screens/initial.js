@@ -2,23 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Drawer from './../Navigators/drawerNavigator';
 import Login from './login';
+import ErrorScreen from './error';
 import moment from 'moment';
 
 // const InitialRoute = ({ loggedIn, navigation }) => (
 //   loggedIn ? <Drawer /> : <Login navigation={navigation} />
 // );
 
-const InitialRoute = ({ loggedIn, navigation }) => {
-  if (moment().isAfter(moment('30-05-2018', 'DD-MM-YYYY').add(5, 'days'))) {
+const InitialRoute = ({ loggedIn, navigation, error }) => {
+  if (moment().isAfter(moment('10-06-2018', 'DD-MM-YYYY').add(5, 'days'))) {
     return null;
   }
 
+  if (error) {
+    return <ErrorScreen error={error} />;
+  }
+
   return (
-    // loggedIn ? <Drawer /> : <Login navigation={navigation} />
-    <Drawer />
+    loggedIn ? <Drawer /> : <Login navigation={navigation} />
+    // <Drawer />
   );
 }
 
-const mapStateToProps = ({ user: { loggedIn } }) => ({ loggedIn });
+const mapStateToProps = ({ user: { loggedIn }, error }) => ({ loggedIn, error });
 
 export default connect(mapStateToProps)(InitialRoute);

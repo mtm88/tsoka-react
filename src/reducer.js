@@ -106,9 +106,9 @@ export default function reducer(state = initialState, action) {
       data[action.payload.config.reduxSourceAction.table] = action.payload.data;
       return { ...state, loading: false, ...data };
     case FETCH_ALL_FAIL:
-      if (devMode) {
-        console.error(`Error while fetching ${action.error.config.reduxSourceAction.table}`);
-      }
+      // if (devMode) {
+      //   console.error(`Error while fetching ${action.error.config.reduxSourceAction.table}`);
+      // }
       return {
         ...state,
         loading: false,
@@ -122,9 +122,9 @@ export default function reducer(state = initialState, action) {
       data[action.payload.config.reduxSourceAction.recordType] = action.payload.data;
       return { ...state, loading: false, ...data };
     case FETCH_SINGLE_FAIL:
-      if (devMode) {
-        console.error(`Error while fetching ${action.error.config.reduxSourceAction.recordType} details`);
-      }
+      // if (devMode) {
+      //   console.error(`Error while fetching ${action.error.config.reduxSourceAction.recordType} details`);
+      // }
       return {
         ...state,
         loading: false,
@@ -238,9 +238,9 @@ export default function reducer(state = initialState, action) {
     case GET_MEMBER_SUCCESS:
       return { ...state, loading: false, memberInfo: action.payload.data };
     case GET_MEMBER_FAIL:
-      if (devMode) {
-        console.error('Error while fetching member details');
-      }
+      // if (devMode) {
+      //   console.error('Error while fetching member details');
+      // }
       return {
         ...state,
         loading: false,

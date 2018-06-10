@@ -95,7 +95,6 @@ class Payments extends Component {
                       color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
                     }}
                     data={awaiting.map((record) => {
-                      debugger;
                       return [
                         record.check_in,
                         record.check_out,

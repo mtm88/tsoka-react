@@ -6,6 +6,7 @@ import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
 import { list, setSelection } from './../reducer';
 import Spinner from './../components/Spinner';
+import AppText from '../components/AppText';
 
 class Home extends Component {
   static navigationOptions = () => ({
@@ -69,10 +70,6 @@ class Home extends Component {
   render() {
     const { activities, places, accomodations, loading } = this.props;
 
-    if (loading || !activities.length || !places.length || !accomodations.length) {
-      return <Spinner />;
-    }
-
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -132,12 +129,23 @@ class Home extends Component {
         </ImageBackground>
 
         <View style={styles.flatList}>
-          <FlatList
-            styles={styles.container}
-            data={this.props.places}
-            renderItem={this.renderItem}
-          />
+          {
+            loading ? <Spinner /> :
+              !places.length ? (
+                <View style={{ padding: 10, alignItems: 'center' }}>
+                  <AppText style={{ fontSize: 18, fontWeight: 'bold', paddingTop: 20 }}>Sorry, there's no data available.</AppText>
+                </View>
+              ) :
+                (
+                  <FlatList
+                    styles={styles.container}
+                    data={this.props.places}
+                    renderItem={this.renderItem}
+                  />
+                )
+          }
         </View>
+
       </View>
     );
   }
@@ -185,6 +193,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ places = [], activities = [], accomodations = [], loading }) => {
   places = places ? places.map(place => ({ key: place.id, ...place })).filter(({ image }) => image) : [];
+  accomodations = accomodations ? accomodations.map(acc => ({ key: acc.id, ...acc })) : [];
 
   return {
     places,
