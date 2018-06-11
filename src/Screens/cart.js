@@ -39,6 +39,22 @@ class Cart extends Component {
       accomodations,
     } = this.props;
 
+    const bookingRecordOptions = [
+      {
+        label: 'Rooms',
+        fields: ['Hotel Name', 'Nights', 'People', 'Rooms', 'Price', 'Action'],
+      },
+      {
+        label: 'Events',
+      },
+      {
+        label: 'Activities',
+      },
+      {
+        label: 'Transport',
+      },
+    ];
+
     return (
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
         <View style={{ backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
@@ -95,17 +111,17 @@ class Cart extends Component {
         <View style={{ flex: 1 }}>
           <ScrollView style={{ marginTop: 20, marginBottom: 20, paddingTop: 10, paddingHorizontal: 10 }}>
             {
-              ['Rooms', 'Events', 'Activities', 'Transport'].map((filterOp) => {
-                return filter === 'All' || filter === filterOp ? (
-                  <View key={filterOp} style={{ marginBottom: 20 }}>
+              bookingRecordOptions.map(({ label, fields }) => {
+                return filter === 'All' || filter === label ? (
+                  <View key={label} style={{ marginBottom: 20 }}>
                     <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10 }}  >
-                      <AppText style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{filterOp}</AppText>
+                      <AppText style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{label}</AppText>
                     </View>
-                    {this.props.cart.items[filterOp.toLowerCase()].length ? (
+                    {this.props.cart.items[label.toLowerCase()].length ? (
                       <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
                         <Row
                           flexArr={[4, 2, 2, 2, 2, 2]}
-                          data={['Hotel Name', 'Nights', 'People', 'Rooms', 'Price', 'Action']}
+                          data={fields}
                           textStyle={{
                             color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
                           }}
@@ -118,7 +134,7 @@ class Cart extends Component {
                               color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
                             }}
                             data={
-                              this.props.cart.items[filterOp.toLowerCase()].map(({ key, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
+                              this.props.cart.items[label.toLowerCase()].map(({ key, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
                                 const relatedAccommodation = accomodations.find(({ id }) => item.acco_id === id);
                                 const nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
                                 return [
@@ -129,7 +145,7 @@ class Cart extends Component {
                                   `${item.price * noOfRooms}$`,
                                   (
                                     <TouchableOpacity
-                                      onPress={() => this.props.removeFromCart(filterOp.toLowerCase(), item.id)}
+                                      onPress={() => this.props.removeFromCart(label.toLowerCase(), item.id)}
                                       style={{ flex: 1 }}>
                                       <View style={{ flex: 1 }}>
                                         <Icon
@@ -147,7 +163,7 @@ class Cart extends Component {
                       </Table>
                     ) : (
                         <View style={{ flex: 1, backgroundColor: '#FFD99C', padding: 5, paddingLeft: 10 }}>
-                          <AppText>No {filterOp} in the cart just yet.</AppText>
+                          <AppText>No {label} in the cart just yet.</AppText>
                         </View>
                       )
                     }

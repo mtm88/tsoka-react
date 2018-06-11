@@ -94,7 +94,7 @@ class Activities extends Component {
                     underlayColor='transparent' />
                 </View>
                 <View style={{ flex: 3 }}>
-                  <AppText style={{ fontWeight: 'bold', fontSize: 17, color: 'white' }}>Book In</AppText>
+                  <AppText style={{ fontWeight: 'bold', fontSize: 17, color: 'white' }}>Book Now</AppText>
                 </View>
               </View>
             </TouchableOpacity>

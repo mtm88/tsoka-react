@@ -152,7 +152,7 @@ const mapStateToProps = ({ selections: { place, accommodation, room }, acco_room
   accommodation,
   room,
   loading,
-  rooms: acco_rooms ? acco_rooms.map(room => ({ ...room, key: room.id })) : [],
+  rooms: acco_rooms ? acco_rooms.map(room => ({ ...room, key: room.id, partner_id: accommodation.offered_by_id })) : [],
 });
 
 const mapDispatchToProps = {
