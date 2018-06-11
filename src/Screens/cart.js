@@ -7,7 +7,7 @@ import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
 
-import { removeFromCart, filterCart, applyToCart } from './../reducer';
+import { removeFromCart, filterCart, applyToCart, getSingle } from './../reducer';
 
 import AppText from './../components/AppText';
 
@@ -15,6 +15,10 @@ class Cart extends Component {
   static navigationOptions = () => ({
     drawerLabel: 'Cart',
   })
+
+  componentDidMount() {
+    this.props.getSingle('service_fees', 'fee', 1, 'current');
+  }
 
   async applyCart() {
     const {
@@ -37,6 +41,7 @@ class Cart extends Component {
       cart: { items: { rooms, events, activities, transport }, filter },
       user,
       accomodations,
+      fee,
     } = this.props;
 
     const bookingRecordOptions = [
@@ -171,6 +176,41 @@ class Cart extends Component {
                 ) : null;
               }).filter(Boolean)
             }
+
+            {fee ? (
+              <View key='serviceFee' style={{ marginBottom: 20 }}>
+                <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
+                  <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Service Fee</AppText>
+                  <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>{fee[0].value}%</AppText>
+                </View>
+              </View>
+            ) : null
+            }
+
+            <View key='total' style={{ marginBottom: 20 }}>
+              <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
+                <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Total</AppText>
+                <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>
+                  {(() => {
+                    let total = 0;
+                    debugger;
+                    [rooms, events, activities, transport].forEach((type) => {
+                      type.forEach(({ item: { price } }) => {
+                        if (price) {
+                          total += parseInt(price, 10);
+                        }
+                      });
+                    });
+
+                    if (fee) {
+                      total *= total * (parseInt(fee[0].value, 10) / 100);
+                    }
+
+                    return total;
+                  })()}$
+                </AppText>
+              </View>
+            </View>
           </ScrollView>
         </View>
       </View >
@@ -178,12 +218,13 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = ({ cart, user, accomodations }) => ({ cart, user, accomodations });
+const mapStateToProps = ({ cart, user, accomodations, fee }) => ({ cart, user, accomodations, fee });
 
 const mapDispatchToProps = {
   removeFromCart,
   filterCart,
   applyToCart,
+  getSingle,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

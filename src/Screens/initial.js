@@ -10,7 +10,7 @@ import moment from 'moment';
 // );
 
 const InitialRoute = ({ loggedIn, navigation, error }) => {
-  if (moment().isAfter(moment('10-06-2018', 'DD-MM-YYYY').add(5, 'days'))) {
+  if (moment().isAfter(moment('12-06-2018', 'DD-MM-YYYY').add(5, 'days'))) {
     return null;
   }
 
@@ -19,8 +19,8 @@ const InitialRoute = ({ loggedIn, navigation, error }) => {
   }
 
   return (
-    loggedIn ? <Drawer /> : <Login navigation={navigation} />
-    // <Drawer />
+    // loggedIn ? <Drawer /> : <Login navigation={navigation} />
+    <Drawer />
   );
 }
 
