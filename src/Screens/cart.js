@@ -12,12 +12,40 @@ import { removeFromCart, filterCart, applyToCart, getSingle } from './../reducer
 import AppText from './../components/AppText';
 
 class Cart extends Component {
+  state = {
+    fee: 0,
+  }
+
   static navigationOptions = () => ({
     drawerLabel: 'Cart',
   })
 
-  componentDidMount() {
-    this.props.getSingle('service_fees', 'fee', 1, 'current');
+  async componentDidMount() {
+    await this.props.getSingle('service_fees', 'fee', 1, 'current');
+
+    const {
+      cart: { items: { rooms, events, activities, transport } },
+      fee,
+    } = this.props;
+
+    let total = 0;
+    [rooms, events, activities, transport].forEach((type) => {
+      type.forEach(({ item: { price } }) => {
+        if (price) {
+          total += parseInt(price, 10);
+        }
+      });
+    });
+
+    if (fee) {
+      const feeValue = total * (parseInt(fee[0].value, 10) / 100).toFixed(2);
+      total += feeValue;
+      
+      this.setState({
+        fee: feeValue,
+        total,
+      });
+    }
   }
 
   async applyCart() {
@@ -181,7 +209,7 @@ class Cart extends Component {
               <View key='serviceFee' style={{ marginBottom: 20 }}>
                 <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
                   <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Service Fee</AppText>
-                  <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>{fee[0].value}%</AppText>
+                  <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>{this.state.fee}$</AppText>
                 </View>
               </View>
             ) : null
@@ -191,23 +219,7 @@ class Cart extends Component {
               <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
                 <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Total</AppText>
                 <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>
-                  {(() => {
-                    let total = 0;
-                    debugger;
-                    [rooms, events, activities, transport].forEach((type) => {
-                      type.forEach(({ item: { price } }) => {
-                        if (price) {
-                          total += parseInt(price, 10);
-                        }
-                      });
-                    });
-
-                    if (fee) {
-                      total *= total * (parseInt(fee[0].value, 10) / 100);
-                    }
-
-                    return total;
-                  })()}$
+                  {this.state.total}$
                 </AppText>
               </View>
             </View>
