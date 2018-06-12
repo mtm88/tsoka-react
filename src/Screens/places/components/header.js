@@ -10,7 +10,7 @@ export default Header = ({ place, accommodation, room, navigation, navigateTo, t
   const imgDir = place ? 'places' : accommodation ? 'accommodation' : 'rooms';
   const nameParam = accommodation ? 'hotel_name' : 'name';
   const currentPlace = place || accommodation || room;
-  const uri = currentPlace && currentPlace.image ? `${serverUrl}/images/${imgDir}/${currentPlace.image}` : '${serverUrl}/images/default.png';
+  const uri = currentPlace && currentPlace.image ? `${serverUrl}/images/${imgDir}/${currentPlace.image}` : `${serverUrl}/images/default.png`;
 
   return (
     <View>

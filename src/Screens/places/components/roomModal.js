@@ -43,7 +43,7 @@ export default class RoomModal extends Component {
   render() {
     const { selectedRoom, modalVisible, setModalVisible, addToCartAndHide, displayError } = this.props;
     const { startDate, endDate, noOfPeople, noOfRooms } = this.state;
-    const uri = selectedRoom && selectedRoom.image ? `${serverUrl}/images/rooms/${selectedRoom.image}` : '${serverUrl}/images/default.png';
+    const uri = selectedRoom && selectedRoom.image ? `${serverUrl}/images/rooms/${selectedRoom.image}` : `${serverUrl}/images/default.png`;
 
     return (
       <View>

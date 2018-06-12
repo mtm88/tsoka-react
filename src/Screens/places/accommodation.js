@@ -65,7 +65,7 @@ class Accomodation extends Component {
   }
 
   renderItem = ({ item }) => {
-    const uri = item && item.image ? `${serverUrl}/images/accommodation/${item.image}` : '${serverUrl}/images/default.png';
+    const uri = item && item.image ? `${serverUrl}/images/accommodation/${item.image}` : `${serverUrl}/images/default.png`;
     return (
       <View style={{ flex: 1, marginVertical: 15, paddingHorizontal: 25 }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>

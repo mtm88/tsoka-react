@@ -62,7 +62,7 @@ class Activities extends Component {
   }
 
   renderItem = ({ item }) => {
-    const uri = item && item.image ? `${serverUrl}/images/activities/${item.image}` : '${serverUrl}/images/default.png';
+    const uri = item && item.image ? `${serverUrl}/images/activities/${item.image}` : `${serverUrl}/images/default.png`;
     return (
       <View key={item.key}
         style={{ flex: 1, marginVertical: 15, paddingHorizontal: 25 }}>

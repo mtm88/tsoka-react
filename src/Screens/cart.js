@@ -40,7 +40,7 @@ class Cart extends Component {
     if (fee) {
       const feeValue = total * (parseInt(fee[0].value, 10) / 100).toFixed(2);
       total += feeValue;
-      
+
       this.setState({
         fee: feeValue,
         total,
@@ -175,7 +175,7 @@ class Cart extends Component {
                                   nights,
                                   noOfPeople,
                                   noOfRooms,
-                                  `${item.price * noOfRooms}$`,
+                                  `$${item.price * noOfRooms}`,
                                   (
                                     <TouchableOpacity
                                       onPress={() => this.props.removeFromCart(label.toLowerCase(), item.id)}
@@ -209,7 +209,7 @@ class Cart extends Component {
               <View key='serviceFee' style={{ marginBottom: 20 }}>
                 <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
                   <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Service Fee</AppText>
-                  <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>{this.state.fee}$</AppText>
+                  <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>${this.state.fee}</AppText>
                 </View>
               </View>
             ) : null
@@ -219,7 +219,7 @@ class Cart extends Component {
               <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
                 <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Total</AppText>
                 <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18, paddingRight: 10, textAlign: 'right' }}>
-                  {this.state.total}$
+                  ${this.state.total}
                 </AppText>
               </View>
             </View>

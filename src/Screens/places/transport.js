@@ -62,7 +62,7 @@ class Transport extends Component {
   }
 
   renderItem = ({ item }) => {
-    const uri = item && item.image ? `${serverUrl}/images/transport/${item.image}` : '${serverUrl}/images/default.png';
+    const uri = item && item.image ? `${serverUrl}/images/transport/${item.image}` : `${serverUrl}/images/default.png`;
     return (
       <View key={`transport${item.key}`}
         style={{ flex: 1, marginVertical: 15, paddingHorizontal: 25 }}>
