@@ -30,9 +30,19 @@ class Cart extends Component {
 
     let total = 0;
     [rooms, events, activities, transport].forEach((type) => {
-      type.forEach(({ item: { price } }) => {
-        if (price) {
-          total += parseInt(price, 10);
+      type.forEach(({ item: { price, cost_per_night }, startDate, endDate, noOfPeople, noOfRooms, type }) => {
+        let nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
+        nights = nights === 0 ? 1 : nights;
+        const valueProp = price || cost_per_night;
+        debugger;
+        if (valueProp) {
+          const valueToAdd = parseInt(valueProp, 10) * nights;
+          if (type === 'rooms') {
+            valueToAdd = valueToAdd * noOfRooms;
+          } else {
+            valueToAdd = valueToAdd * noOfPeople;
+          }
+          total += valueToAdd;
         }
       });
     });
@@ -82,6 +92,7 @@ class Cart extends Component {
       },
       {
         label: 'Activities',
+        fields: ['Name', 'Nights', 'People', 'Price', 'Action'],
       },
       {
         label: 'Transport',
@@ -147,13 +158,13 @@ class Cart extends Component {
               bookingRecordOptions.map(({ label, fields }) => {
                 return filter === 'All' || filter === label ? (
                   <View key={label} style={{ marginBottom: 20 }}>
-                    <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10 }}  >
+                    <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5 }}  >
                       <AppText style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{label}</AppText>
                     </View>
                     {this.props.cart.items[label.toLowerCase()].length ? (
                       <Table borderStyle={{ borderWidth: 0, borderColor: '#5b1f07' }}>
                         <Row
-                          flexArr={[4, 2, 2, 2, 2, 2]}
+                          flexArr={fields.map((field, i) => (i === 0) ? 4 : 2)}
                           data={fields}
                           textStyle={{
                             color: 'white', fontWeight: 'bold', fontSize: 11, textAlign: 'center', padding: 5
@@ -161,21 +172,24 @@ class Cart extends Component {
                           style={{ height: 30, backgroundColor: '#5b1f07' }} />
                         <TableWrapper style={{ backgroundColor: '#FFD99C' }}>
                           <Rows
-                            flexArr={[4, 2, 2, 2, 2, 2]}
+                            flexArr={fields.map((field, i) => (i === 0) ? 4 : 2)}
                             style={{ height: 30 }}
                             textStyle={{
                               color: 'black', fontWeight: 'bold', fontSize: 11, textAlign: 'center',
                             }}
                             data={
-                              this.props.cart.items[label.toLowerCase()].map(({ key, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
+                              this.props.cart.items[label.toLowerCase()].map(({ key, type, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
                                 const relatedAccommodation = accomodations.find(({ id }) => item.acco_id === id);
                                 const nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
+                                const nameProperty = type === 'rooms' ? 'hotel_name' : 'name';
+                                const costProperty = type === 'rooms' ? 'price' : 'cost_per_night';
+
                                 return [
-                                  relatedAccommodation.hotel_name,
-                                  nights,
+                                  type === 'rooms' ? relatedAccommodation[nameProperty] : item[nameProperty],
+                                  nights ? nights : 1,
                                   noOfPeople,
-                                  noOfRooms,
-                                  `$${item.price * noOfRooms}`,
+                                  noOfRooms ? noOfRooms : null,
+                                  `$${noOfRooms ? item[costProperty] * noOfRooms : noOfPeople * item[costProperty]}`,
                                   (
                                     <TouchableOpacity
                                       onPress={() => this.props.removeFromCart(label.toLowerCase(), item.id)}
@@ -189,7 +203,7 @@ class Cart extends Component {
                                       </View>
                                     </TouchableOpacity>
                                   )
-                                ]
+                                ].filter(Boolean)
                               })
                             } />
                         </TableWrapper>

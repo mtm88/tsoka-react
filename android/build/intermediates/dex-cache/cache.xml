@@ -93,30 +93,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/core/2.13.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="54e0aca6d2f84f92ac74f252b967c543705d7d4a">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-core-2.13.1_a74f582152b965ba20ac00d51f8ce57375112cfb.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments/card-form/2.3.2/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="8054ec1098052c14c7755bffce8da7b1da78ddf7">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments-card-form-2.3.2_376bf9660ad962d913e63ff6e7f026044b588644.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.paypal.android.sdk/paypal-one-touch/2.13.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="9030067e7084e3c12bcb2c1e7e3c379898d35192">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.paypal.android.sdk-paypal-one-touch-2.13.1_9c35dc474e90ef04a12c2b1ed8916de28d7cac61.jar" />
     </item>
     <item
         is-multidex="false"
@@ -165,12 +147,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/braintree/2.14.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="33c7bfafdbebf0e405e473aedee1d6632bc18c7b">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/release/com.braintreepayments.api-braintree-2.14.0_4c7fd2de48239c0bf889ccdd2434cd6c5e734761.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/gson-2.3.1_a771c01661cbd2e2babe7482567e6944fa5a2b73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.paypal.android.sdk/data-collector/2.14.0/2e6b946f480b28c68ce73fce4b2ef69a2546c1ab/data-collector-2.14.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2e6b946f480b28c68ce73fce4b2ef69a2546c1ab">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/release/data-collector-2.14.0_17bfbaae7b7710a8d7464c370cf48169e79cd757.jar" />
     </item>
     <item
         is-multidex="false"
@@ -192,21 +192,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/braintree/2.13.1/jars/classes.jar"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.braintreepayments.api/core/2.14.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
-        sha1="9d621e23d5ac55bef0a0a1e4c4f109aed3251d69">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/com.braintreepayments.api-braintree-2.13.1_daef2f6b59f6c6e8a3667e991c795fa4e2bf95a5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/michal/.gradle/caches/modules-2/files-2.1/com.paypal.android.sdk/data-collector/2.13.1/9e7ce541ee1eb9bfcd6fedbf02f5b7a252164edc/data-collector-2.13.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="9e7ce541ee1eb9bfcd6fedbf02f5b7a252164edc">
-        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/data-collector-2.13.1_1911e8ac62b802bfe57bf6d73ae3227b53441932.jar" />
+        sha1="3dc45707889d68aa5804daad00b26eb5f7095085">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/release/com.braintreepayments.api-core-2.14.0_b98ee979b1f33852b649b7526500cfef5fb1f696.jar" />
     </item>
     <item
         is-multidex="false"
@@ -288,6 +279,15 @@
         revision="23.0.1"
         sha1="d07d8fabcd57aaaed5c48d3d3e7563ac7afc0d65">
         <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/debug/tsoka-react-native-facebook-login-unspecified_d070fdba1192e511d71784c0642d8dbbb3f68b90.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/exploded-aar/com.paypal.android.sdk/paypal-one-touch/2.14.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b7c2731aedad897de2ac380f6cb87a9402d4b811">
+        <dex dex="/Users/michal/MT/Projects/tsoka/tsoka-react/android/app/build/intermediates/pre-dexed/release/com.paypal.android.sdk-paypal-one-touch-2.14.0_1297d462c6988bf785c5743e797da2ecccbd7db3.jar" />
     </item>
     <item
         is-multidex="false"

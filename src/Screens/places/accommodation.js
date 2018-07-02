@@ -9,7 +9,6 @@ import { list, setSelection } from './../../reducer';
 
 import Header from './components/header';
 import Spinner from './../../components/Spinner';
-import RoomModal from './components/roomModal';
 
 import styles from './styles';
 import AppText from './../../components/AppText';

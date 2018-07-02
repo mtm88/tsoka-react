@@ -10,7 +10,7 @@ import moment from 'moment';
 // );
 
 const InitialRoute = ({ loggedIn, navigation, error }) => {
-  if (moment().isAfter(moment('12-06-2018', 'DD-MM-YYYY').add(5, 'days'))) {
+  if (moment().isAfter(moment('01-07-2018', 'DD-MM-YYYY').add(14, 'days'))) {
     return null;
   }
 

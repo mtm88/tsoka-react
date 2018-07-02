@@ -5,12 +5,18 @@ import Header from './components/header';
 import Spinner from './../../components/Spinner';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { list } from './../../reducer';
+import { list, setSelection, addToCart } from './../../reducer';
 import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
 import AppText from './../../components/AppText';
+import ActivityModal from './components/activityModal';
 
 class Activities extends Component {
+  state = {
+    modalVisible: false,
+    displayError: false,
+  };
+
   static navigationOptions = {
     tabBarIcon: () => {
       return (
@@ -28,12 +34,50 @@ class Activities extends Component {
     this.props.list('activities', 'place_id', id);
   }
 
+  resetError() {
+    this.setState({
+      displayError: false,
+    });
+  }
+
+  setModalVisible(visible) {
+    this.setState({
+      modalVisible: visible,
+    });
+  }
+
+  dispatchSelectionAndToggleModal(item) {
+    this.props.setSelection('activity', item);
+    this.setModalVisible(true);
+  }
+
+  addToCartAndHide({ startDate, endDate, noOfPeople }) {
+    if (!noOfPeople) {
+      this.setState({
+        displayError: true
+      });
+    } else {
+      this.props.addToCart({
+        type: 'activities',
+        item: this.props.activity,
+        startDate, endDate, noOfPeople,
+      })
+      this.setState({
+        displayError: false,
+        modalVisible: !this.state.modalVisible,
+      });
+    }
+  }
+
   render() {
-    const { place, loading, activities } = this.props;
+    const { place, loading, activities, activity } = this.props;
+    const { displayError } = this.state;
 
     if (!loading) {
       return (
         < View style={styles.container} >
+          <ActivityModal selectedActivity={activity} displayError={displayError} resetError={() => this.resetError()} modalVisible={this.state.modalVisible} setModalVisible={(visible) => this.setModalVisible(visible)} addToCartAndHide={({ startDate, endDate, noOfPeople }) => this.addToCartAndHide({ startDate, endDate, noOfPeople })} />
+
           {
             activities.length ? (
               <View style={{ flex: 1 }}>
@@ -84,7 +128,7 @@ class Activities extends Component {
               {/* <AppText style={{ fontWeight: '700', color: '#5b1f07', paddingLeft: 10, paddingTop: 6, fontSize: 17 }}>{item.guide_name}</AppText> */}
               <AppText style={{ fontWeight: 'normal', color: '#5b1f07', paddingLeft: 10, paddingTop: 10, fontSize: 16 }}>${item.cost_per_night}</AppText>
             </View>
-            <TouchableOpacity onPress={() => { }}>
+            <TouchableOpacity onPress={() => this.dispatchSelectionAndToggleModal(item)}>
               <View style={{ flex: 1, backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
                 <View style={{ flex: 1 }}>
                   <Icon
@@ -94,7 +138,7 @@ class Activities extends Component {
                     underlayColor='transparent' />
                 </View>
                 <View style={{ flex: 3 }}>
-                  <AppText style={{ fontWeight: 'bold', fontSize: 17, color: 'white' }}>Book Now</AppText>
+                  <AppText style={{ fontWeight: 'bold', fontSize: 17, color: 'white' }}>Book now</AppText>
                 </View>
               </View>
             </TouchableOpacity>
@@ -105,14 +149,17 @@ class Activities extends Component {
   };
 }
 
-const mapStateToProps = ({ selections: { place }, activities, loading }) => ({
+const mapStateToProps = ({ selections: { place, activity }, activities, loading }) => ({
   place,
+  activity,
   activities: activities ? activities.map(act => ({ ...act, key: act.id })) : [],
   loading,
 });
 
 const mapDispatchToProps = {
   list,
+  setSelection,
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Activities);

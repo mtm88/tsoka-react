@@ -71,6 +71,7 @@ const initialState = {
   selections: {
     place: null,
     accommodation: null,
+    activity: null,
     room: null,
     blog: null,
   },
