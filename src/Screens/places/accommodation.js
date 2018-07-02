@@ -82,7 +82,7 @@ class Accomodation extends Component {
           <View style={{ flex: 1, backgroundColor: '#FFD99C', flexDirection: 'column' }}>
             <View style={{ flex: 1 }}>
               <AppText style={{ fontWeight: '700', color: '#5b1f07', paddingLeft: 10, paddingTop: 6, fontSize: 17 }}>{item.hotel_name}</AppText>
-              <AppText style={{ fontWeight: 'normal', color: '#5b1f07', paddingLeft: 10, paddingTop: 10, fontSize: 16 }}>${item.cost_per_night}</AppText>
+              <AppText style={{ fontWeight: 'normal', color: '#5b1f07', paddingLeft: 10, paddingTop: 10, fontSize: 16 }}>From: ${item.cost_per_night}</AppText>
             </View>
             <TouchableOpacity onPress={() => this.dispatchSelectionAndNavigate(item)}>
               <View style={{ flex: 1, backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>

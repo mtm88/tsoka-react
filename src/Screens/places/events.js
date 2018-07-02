@@ -5,12 +5,18 @@ import Header from './components/header';
 import Spinner from './../../components/Spinner';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { list } from './../../reducer';
+import { list, setSelection, addToCart } from './../../reducer';
 import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
 import AppText from './../../components/AppText';
+import EventModal from './components/eventModal';
 
 class Events extends Component {
+  state = {
+    modalVisible: false,
+    displayError: false,
+  };
+
   static navigationOptions = {
     tabBarIcon: () => {
       return (
@@ -28,12 +34,50 @@ class Events extends Component {
     this.props.list('events', 'place_id', id);
   }
 
+  resetError() {
+    this.setState({
+      displayError: false,
+    });
+  }
+
+  setModalVisible(visible) {
+    this.setState({
+      modalVisible: visible,
+    });
+  }
+
+  dispatchSelectionAndToggleModal(item) {
+    this.props.setSelection('event', item);
+    this.setModalVisible(true);
+  }
+
+  addToCartAndHide({ noOfPeople }) {
+    if (!noOfPeople) {
+      this.setState({
+        displayError: true
+      });
+    } else {
+      this.props.addToCart({
+        type: 'events',
+        item: this.props.event,
+        noOfPeople,
+      })
+      this.setState({
+        displayError: false,
+        modalVisible: !this.state.modalVisible,
+      });
+    }
+  }
+
   render() {
-    const { place, loading, events } = this.props;
+    const { place, loading, events, event } = this.props;
+    const { displayError } = this.state;
 
     if (!loading) {
       return (
         < View style={styles.container} >
+          <EventModal selectedEvent={event} displayError={displayError} resetError={() => this.resetError()} modalVisible={this.state.modalVisible} setModalVisible={(visible) => this.setModalVisible(visible)} addToCartAndHide={({ noOfPeople }) => this.addToCartAndHide({ noOfPeople })} />
+
           {
             events.length ? (
               <View style={{ flex: 1 }}>
@@ -83,7 +127,7 @@ class Events extends Component {
               <AppText style={{ fontWeight: '700', color: '#5b1f07', paddingLeft: 10, paddingTop: 6, fontSize: 17 }}>{item.name}</AppText>
               <AppText style={{ fontWeight: 'normal', color: '#5b1f07', paddingLeft: 10, paddingTop: 10, fontSize: 16 }}>${item.price}</AppText>
             </View>
-            <TouchableOpacity onPress={() => { }}>
+            <TouchableOpacity onPress={() => this.dispatchSelectionAndToggleModal(item)}>
               <View style={{ flex: 1, backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
                 <View style={{ flex: 1 }}>
                   <Icon
@@ -104,14 +148,17 @@ class Events extends Component {
   };
 }
 
-const mapStateToProps = ({ selections: { place }, events, loading }) => ({
+const mapStateToProps = ({ selections: { place, event }, events, loading }) => ({
   place,
+  event,
   events: events ? events.map(ev => ({ ...ev, key: ev.id })) : [],
   loading,
 });
 
 const mapDispatchToProps = {
   list,
+  setSelection,
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);

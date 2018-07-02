@@ -10,6 +10,7 @@ import { Table, Row, Rows, TableWrapper } from 'react-native-table-component';
 import { removeFromCart, filterCart, applyToCart, getSingle } from './../reducer';
 
 import AppText from './../components/AppText';
+import Spinner from './../components/Spinner';
 
 class Cart extends Component {
   state = {
@@ -32,9 +33,9 @@ class Cart extends Component {
     [rooms, events, activities, transport].forEach((type) => {
       type.forEach(({ item: { price, cost_per_night }, startDate, endDate, noOfPeople, noOfRooms, type }) => {
         let nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
-        nights = nights === 0 ? 1 : nights;
-        const valueProp = price || cost_per_night;
-        debugger;
+        nights = startDate && endDate ? nights ? nights : 1 : 1;
+        const valueProp = price || cost_per_night || 0;
+
         if (valueProp) {
           const valueToAdd = parseInt(valueProp, 10) * nights;
           if (type === 'rooms') {
@@ -69,7 +70,7 @@ class Cart extends Component {
       await this.props.applyToCart({ rooms, events, activities, transport }, user);
       Alert.alert('Reservation status', 'Your reservation is now being processed. Please wait for an approval from one of the partners.');
     } catch (error) {
-      Alert.alert('Reservation status', 'There\'s been a problem with processing your reservation. Please try again or contact support.');
+      Alert.alert('Reservation status', 'There\'s been a problem with processing your reservation. Please try again or contact Customer Support.');
     }
   }
 
@@ -80,6 +81,7 @@ class Cart extends Component {
       user,
       accomodations,
       fee,
+      loading,
     } = this.props;
 
     const bookingRecordOptions = [
@@ -89,6 +91,7 @@ class Cart extends Component {
       },
       {
         label: 'Events',
+        fields: ['Name', 'People', 'Price', 'Action'],
       },
       {
         label: 'Activities',
@@ -96,10 +99,12 @@ class Cart extends Component {
       },
       {
         label: 'Transport',
+        fields: ['Name', 'Nights', 'People', 'Price', 'Action'],
       },
     ];
 
     return (
+      loading ? <Spinner /> :
       <View style={{ flex: 1, backgroundColor: '#f4b44c' }}>
         <View style={{ backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
           <Icon
@@ -181,15 +186,15 @@ class Cart extends Component {
                               this.props.cart.items[label.toLowerCase()].map(({ key, type, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
                                 const relatedAccommodation = accomodations.find(({ id }) => item.acco_id === id);
                                 const nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
-                                const nameProperty = type === 'rooms' ? 'hotel_name' : 'name';
-                                const costProperty = type === 'rooms' ? 'price' : 'cost_per_night';
+                                const nameProperty = type === 'rooms' ? 'hotel_name' : type === 'transport' ? 'route_name' : 'name';
+                                const costProperty = type === 'rooms' || type === 'events' ? 'price' : 'cost_per_night';
 
                                 return [
                                   type === 'rooms' ? relatedAccommodation[nameProperty] : item[nameProperty],
-                                  nights ? nights : 1,
+                                  startDate && endDate ? nights ? nights : 1 : null,
                                   noOfPeople,
                                   noOfRooms ? noOfRooms : null,
-                                  `$${noOfRooms ? item[costProperty] * noOfRooms : noOfPeople * item[costProperty]}`,
+                                  `$${noOfRooms ? (item[costProperty] * noOfRooms * nights) : noOfPeople * item[costProperty]}`,
                                   (
                                     <TouchableOpacity
                                       onPress={() => this.props.removeFromCart(label.toLowerCase(), item.id)}
@@ -219,7 +224,7 @@ class Cart extends Component {
               }).filter(Boolean)
             }
 
-            {fee ? (
+            {fee || fee === 0 ? (
               <View key='serviceFee' style={{ marginBottom: 20 }}>
                 <View style={{ flex: 1, backgroundColor: '#5b1f07', padding: 5, paddingLeft: 10, flexDirection: 'row' }}>
                   <AppText style={{ flex: 1, color: 'white', fontWeight: 'bold', fontSize: 18 }}>Service Fee</AppText>

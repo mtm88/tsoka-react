@@ -5,12 +5,18 @@ import Header from './components/header';
 import Spinner from './../../components/Spinner';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { list } from './../../reducer';
+import { list, setSelection, addToCart } from './../../reducer';
 import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
 import AppText from './../../components/AppText';
+import TransportModal from './components/transportModal';
 
 class Transport extends Component {
+  state = {
+    modalVisible: false,
+    displayError: false,
+  };
+
   static navigationOptions = {
     tabBarIcon: () => {
       return (
@@ -28,12 +34,50 @@ class Transport extends Component {
     this.props.list('transports', 'place_id', id);
   }
 
+  resetError() {
+    this.setState({
+      displayError: false,
+    });
+  }
+
+  setModalVisible(visible) {
+    this.setState({
+      modalVisible: visible,
+    });
+  }
+
+  dispatchSelectionAndToggleModal(item) {
+    this.props.setSelection('transport', item);
+    this.setModalVisible(true);
+  }
+
+  addToCartAndHide({ startDate, endDate, noOfPeople }) {
+    if (!noOfPeople) {
+      this.setState({
+        displayError: true
+      });
+    } else {
+      this.props.addToCart({
+        type: 'transport',
+        item: this.props.transport,
+        startDate, endDate, noOfPeople,
+      })
+      this.setState({
+        displayError: false,
+        modalVisible: !this.state.modalVisible,
+      });
+    }
+  }
+
   render() {
-    const { place, loading, transports } = this.props;
+    const { place, loading, transports, transport } = this.props;
+    const { displayError } = this.state;
 
     if (!loading) {
       return (
         < View style={styles.container} >
+          <TransportModal selectedTransport={transport} displayError={displayError} resetError={() => this.resetError()} modalVisible={this.state.modalVisible} setModalVisible={(visible) => this.setModalVisible(visible)} addToCartAndHide={({ startDate, endDate, noOfPeople }) => this.addToCartAndHide({ startDate, endDate, noOfPeople })} />
+
           {
             transports.length ? (
               <View style={{ flex: 1 }}>
@@ -83,7 +127,7 @@ class Transport extends Component {
               <AppText style={{ fontWeight: '700', color: '#5b1f07', paddingLeft: 10, paddingTop: 6, fontSize: 17 }}>{item.route_name}</AppText>
               <AppText style={{ fontWeight: 'normal', color: '#5b1f07', paddingLeft: 10, paddingTop: 10, fontSize: 16 }}>${item.cost_per_night}</AppText>
             </View>
-            <TouchableOpacity onPress={() => { }}>
+            <TouchableOpacity onPress={() => this.dispatchSelectionAndToggleModal(item)}>
               <View style={{ flex: 1, backgroundColor: '#5b1f07', flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
                 <View style={{ flex: 1 }}>
                   <Icon
@@ -104,14 +148,17 @@ class Transport extends Component {
   };
 }
 
-const mapStateToProps = ({ selections: { place }, transports, loading }) => ({
+const mapStateToProps = ({ selections: { place, transport }, transports, loading }) => ({
   place,
+  transport,
   transports: transports ? transports.map(tr => ({ ...tr, key: tr.id })) : [],
   loading,
 });
 
 const mapDispatchToProps = {
   list,
+  setSelection,
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Transport);
