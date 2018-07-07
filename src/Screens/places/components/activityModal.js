@@ -75,8 +75,8 @@ export default class ActivityModal extends Component {
               </View>
 
               <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'center', paddingHorizontal: 20, paddingTop: 20 }}>
-                <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>Check-In</AppText>
+                <View style={{ flex: 2, paddingHorizontal: 15 }}>
+                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>Date</AppText>
                   <DatePicker
                     date={this.state.startDate}
                     style={datePickerStyle}
@@ -88,22 +88,6 @@ export default class ActivityModal extends Component {
                     cancelBtnText='Cancel'
                     customStyles={datePickerCustomStyles}
                     onDateChange={startDate => this.setDates('startDate', startDate)}
-                  />
-                </View>
-
-                <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>Check-Out</AppText>
-                  <DatePicker
-                    date={this.state.endDate}
-                    style={datePickerStyle}
-                    mode='date'
-                    format='DD/MM/YYYY'
-                    minDate='2016-05-01'
-                    maxDate='2016-06-01'
-                    confirmBtnText='Confirm'
-                    cancelBtnText='Cancel'
-                    customStyles={datePickerCustomStyles}
-                    onDateChange={endDate => this.setDates('endDate', endDate)}
                   />
                 </View>
               </View>

@@ -54,15 +54,14 @@ class Cart extends Component {
 
       this.setState({
         fee: feeValue,
-        total,
+        total: total.toFixed(2),
       });
     }
   }
 
   async applyCart() {
     const {
-      navigation,
-      cart: { items: { rooms, events, activities, transport }, filter },
+      cart: { items: { rooms, events, activities, transport } },
       user,
     } = this.props;
 
@@ -95,11 +94,11 @@ class Cart extends Component {
       },
       {
         label: 'Activities',
-        fields: ['Name', 'Nights', 'People', 'Price', 'Action'],
+        fields: ['Name', 'People', 'Price', 'Action'],
       },
       {
         label: 'Transport',
-        fields: ['Name', 'Nights', 'People', 'Price', 'Action'],
+        fields: ['Name', 'People', 'Price', 'Action'],
       },
     ];
 
@@ -185,13 +184,19 @@ class Cart extends Component {
                             data={
                               this.props.cart.items[label.toLowerCase()].map(({ key, type, item, startDate, endDate, noOfPeople, noOfRooms }, i) => {
                                 const relatedAccommodation = accomodations.find(({ id }) => item.acco_id === id);
-                                const nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
+                                let nights = moment(endDate, 'DD/MM/YYYY').diff(moment(startDate, 'DD/MM/YYYY'), 'days');
                                 const nameProperty = type === 'rooms' ? 'hotel_name' : type === 'transport' ? 'route_name' : 'name';
                                 const costProperty = type === 'rooms' || type === 'events' ? 'price' : 'cost_per_night';
 
+                                if (label === 'Rooms') {
+                                  nights = startDate && endDate ? nights ? nights : 1 : null;
+                                } else {
+                                  nights = null;
+                                }
+
                                 return [
                                   type === 'rooms' ? relatedAccommodation[nameProperty] : item[nameProperty],
-                                  startDate && endDate ? nights ? nights : 1 : null,
+                                  nights,
                                   noOfPeople,
                                   noOfRooms ? noOfRooms : null,
                                   `$${noOfRooms ? (item[costProperty] * noOfRooms * nights) : noOfPeople * item[costProperty]}`,

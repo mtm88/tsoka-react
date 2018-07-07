@@ -76,7 +76,7 @@ export default class TransportModal extends Component {
 
               <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'center', paddingHorizontal: 20, paddingTop: 20 }}>
                 <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>Check-In</AppText>
+                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>Start Date</AppText>
                   <DatePicker
                     date={this.state.startDate}
                     style={datePickerStyle}
@@ -92,7 +92,7 @@ export default class TransportModal extends Component {
                 </View>
 
                 <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>Check-Out</AppText>
+                  <AppText style={{ fontWeight: 'bold', paddingBottom: 3 }}>End Date</AppText>
                   <DatePicker
                     date={this.state.endDate}
                     style={datePickerStyle}
