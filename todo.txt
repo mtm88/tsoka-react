@@ -1,0 +1,16 @@
+App Changes to be Made
+1. App reload button on network failure to return to home page if there is no network
+2. Link PayPal Express and not Brain Tree (since I’m using a south African PayPal Account)
+Details how the page should look in the screenshots
+3. Update all social media links to /tsokaafrica
+
+Main Change
+Replace Transport Tab with Packages
+Get data from db table “packages”
+Get name from ‘name’
+Cost from ‘cost_per_night’ / number of days from ‘days’ ( have it show eg like $400 / 5 days)
+Change ‘Book now’ button to ‘View Details”
+New Page
+Will design a layout for it and send , this is the page that shows when you click ‘view details’ it gets
+data from database table ‘package_overview’ dispays info for the package same way
+accommodation does on rooms let mee make the layout and sent.
